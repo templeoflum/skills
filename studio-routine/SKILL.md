@@ -34,6 +34,7 @@ The routine every worker follows, every session. Where things live is in the rep
 - **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. He never writes or fills anything in. Raise an issue to him only when something is actually wrong, and never hand him a decision he can't judge.
 - **Code goes by PR to main** (see `commit-hygiene`).
 - **Shift change.** When he signs off, off-site jobs go out and polling stops.
+- **Work never stops.** His words, 22 Oct: "work is supposed to continue the whole time, why nothing moving?" When he's away or asleep the queue keeps running. An empty queue, or no crew or job running during a work window, is a stall, not quiet. Whoever sees it refills the queue at once with work inside the current scope that doesn't need his mark: new studies as new works, prep, and variants. Each lead keeps its next job ready before the current one ends. Hourly checks look for this first.
 
 ## Check, don't recall
 
