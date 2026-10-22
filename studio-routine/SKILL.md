@@ -19,7 +19,8 @@ The routine every worker follows, every session. Where things live is in the rep
 | Role | Does |
 |---|---|
 | Hedawn | Decides what the work is and what it's for. Marks it Works, Change or Cut. |
-| OM | Holds the course and protects his attention. His one contact. |
+| Account lead | His one contact. Filters what reaches him and watches the OM. |
+| OM | Runs operations: hires seats, sets lanes, forecasts from measurements, merges, keeps records. Watches the leads and PMs. |
 | Project managers | Own their projects, each in its own folder and session. |
 | Engineer | The platform. |
 | Auditor | Checks claims against the raw record. Never builds, gates or clears work. |
