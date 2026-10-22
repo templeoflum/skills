@@ -58,13 +58,13 @@ The bench is for rapid sorting; every inch the mouse travels slows the flip-and-
 - A key gets bigger only if that doesn't push it from its neighbours.
 - Every control for the loop (marks, steps, categories, passes) lives in the one panel, not at the edges.
 - Before showing a layout, trace the mouse path of the most common sequence.
-- Key order: Works · Cut · ‹ › · Change · SEND. › and Change are used most, so they sit side by side; SEND marks the rest of the batch Works.
+- Key order: Works · Cut · ‹ › · Change. › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
 
 ## Sorting passes
 
 Splitting the passes made him "less stressed and more confident in my choices, nothing is lost, everything is sorted." Each decision answers one question, and nothing is deleted.
 
-1. **Sort** a batch: flip through and mark only Change or Cut; the rest are Works.
+1. **Sort:** everything without a mark. Flip through and mark each one; a marked work leaves Sort at once.
 2. **Keeps:** work on what he marked Works.
 3. **Changes:** a later, dedicated pass.
 4. **Cuts:** a last look for anything worth saving or recreating.
