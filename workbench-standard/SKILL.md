@@ -17,8 +17,8 @@ Marked Works by Hedawn, 22 Oct 2026. The workbench shows work in one shape, so e
 ## Five things
 
 - **Project.** A body of work with a name and its categories. It names the one folder its records live in.
-- **Work.** One piece: a clip, a flyer concept, a room, a track. It has a stable id, a title, a category and its versions. A work stays the same work for its whole life; new drafts never make a new work.
-- **Version.** One take on a work, numbered 1, 2, 3, newest first. Each says in one line what changed, when, and where its file is. A new draft is a new version, and nothing else.
+- **Work.** One piece: a clip, a flyer concept, a room, a track. It has a stable id, a title, its bin (and sub-bin, if any) and its versions. Bins hold sub-bins as deep as the content needs, with no fixed number of levels; the project picks the categories, and the standard sets only this structure (after the Ableton Atlas, `live-atlas/DEVICES_MAP.md`). A work stays the same work for its whole life; new drafts never make a new work.
+- **Version.** One take on a work, numbered 1, 2, 3, newest first. Each says in one line what changed, when, and where its file is. A new draft is a new version, and nothing else. Versions are stepped through inside the work's card, never shown as extra cards.
 - **Format.** The same work in another shape (VJ: 16:9, 3:1, 6:1; flyers: story, feed, print). Each format of a version has its own file and its own output state.
 - **Mark.** Works, Change or Cut, with a note, made by Hedawn. A mark names the work and the version it was made on.
 
@@ -46,9 +46,9 @@ Views (the console now, other views later) read only this shape and never know w
 ## The console
 
 - **Fixed:** the control panel and the side scroller (the four-slot window) stay the same whatever is reviewed. A project changes only its keys, in its profile.
-- **Cards** show in the side scroller. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
+- **Cards** show in the side scroller, one card per work. The card list has a set height; it filters and scrolls, and keeps its place in each bin. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
 - **Pass filters** (Sort, Keeps, Changes, Cuts) are symbols with their counts.
-- **Tab rows** scroll when needed. Sub-bins inside a bin are an ability, built only when a project has something to put there.
+- **Bin buttons** stay fixed, with a bin's sub-bins inside it. Nothing expands or collapses. On a phone, bins are pickers. Positions and sizes come from layout studies, still open.
 
 ## Keys by travel
 
