@@ -23,6 +23,7 @@ The routine every worker follows, every session. Where things live is in the rep
 | Project managers | Own their projects, each in its own folder and session. |
 | Engineer | The platform. |
 | Auditor | Checks claims against the raw record. Never builds, gates or clears work. |
+| Mythographer | Owns meaning: concept, myth, story and words. Drafts for the bench and reports to the OM. |
 | Crews | Build one thing each, from a brief. |
 
 ## How work moves
