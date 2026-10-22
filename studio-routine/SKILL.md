@@ -27,9 +27,9 @@ The routine every worker follows, every session. Where things live is in the rep
 
 ## How work moves
 
-- **His words are ideas until he says go.** Talk with him is a buffer for finding the signal. Agreement is not a go. Before briefing a worker or recording a decision, ask "Should I put this into motion?" and wait for a clear yes. Until then it goes in the garden as an open idea.
+- **His words are ideas until he says go.** He holds identity and policy only; technical calls (pushes, merges, pointers, memory, tooling) belong to the OM and the crews. Talk with him is a buffer for finding the signal. Agreement is not a go. Before briefing a worker or recording a decision, ask "Should I put this into motion?" and wait for a clear yes. Until then it goes in the garden as an open idea.
 - **Talk before building** an idea he hasn't committed to. A study he asked for gets made boldly, and he reacts.
-- **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. He never writes or fills anything in.
+- **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. He never writes or fills anything in. Raise an issue to him only when something is actually wrong, and never hand him a decision he can't judge.
 - **Code goes by PR to main** (see `commit-hygiene`).
 - **Shift change.** When he signs off, off-site jobs go out and polling stops.
 
