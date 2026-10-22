@@ -59,7 +59,7 @@ These are the mistakes that can't be taken back.
 - **Retiring means archiving.** Move it; never delete.
 - **He does these himself:** passwords, logins and OAuth, installs on his devices, device verification.
 - **Never interrupt his screen.** No pop-ups; never open his browser. Background tools run headless.
-- **Plain `gh` posts as Hedawn.** There are no role bots.
+- **PRs go through role bots:** `~/work/studio-operations/ops/ghapps/gh_as.sh <role> pr create|merge …`, so his Slack shows which role did what. The roles are `om` and `engineer` (all his repos), plus `crew` and `auditor` (studio-operations only). `git push` is unchanged. He checks in from Slack, so PR titles and bodies say the outcome first and plainly.
 - **Check visibility before every push:** `gh repo view --json visibility`.
 - **Main changes only by PR.**
 - **Stay in your lane.** Everything outside your project is read-only unless your brief says otherwise.
