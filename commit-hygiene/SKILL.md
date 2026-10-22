@@ -24,7 +24,7 @@ Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no b
 ## Main
 
 - **Main changes only by PR.** Work goes on a branch.
-- **Plain `gh` posts as Hedawn.** Everything posted shows as his, so keep it short and plain.
+- **PRs go through role bots:** `~/work/studio-operations/ops/ghapps/gh_as.sh <role> pr create|merge …`, so his Slack shows which role did what. The roles are `om` and `engineer` (all his repos), plus `crew` and `auditor` (studio-operations only). `git push` is unchanged. He checks in from Slack, so PR titles and bodies say the outcome first and plainly.
 - There is no CI. Check the change yourself before asking for a merge.
 
 ## Media
