@@ -27,6 +27,8 @@ One rung per Works, in standard order (previz → blocking → look → final):
 
 Cycles path tracing on a whole loop before rung 4 is a defect.
 
+On every rung, reuse before you render (`studio-routine` › How work moves): render only what changed and stitch it onto what was kept, including shifted frames when only timing moved.
+
 ## Briefing a crew
 
 Name the stage and the rung in the brief. Carry every rule from earlier rounds, not just the last note.
