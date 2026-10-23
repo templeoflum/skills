@@ -53,7 +53,8 @@ Views (the console now, other views later) read only this shape and never know w
 - **Cards** show in the side scroller, one card per work. The card list has a set height; it filters and scrolls, and keeps its place in each bin. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
 - **Pass filters** (Needs sorting, Nothing pending, Needs change, Cut) are symbols with their counts.
 - **Bin buttons** stay fixed, with a bin's sub-bins inside it. Nothing expands or collapses. On a phone, bins are pickers. Positions and sizes come from layout studies, still open.
-- **Live:** the console takes in new records in place. Anything that would move what he is looking at waits behind one quiet Update key (R) until he takes it.
+- **Live:** the console takes in new records in place. Everything off the card in front comes in on its own. Only a change that would move the card in front (a new version, a new file under it, or it leaving the strip) waits behind one quiet Update key (R), and the card says `vN waiting · R`.
+- **New code reloads itself** (his A+C, 23 Oct): when the console code changes, the page reloads on its own once he is idle, and comes back where he was (card, version, playhead, play or pause, drafts). Nothing moves while a note is open, a drag is live or a mark is in flight.
 
 ## Keys by travel
 
