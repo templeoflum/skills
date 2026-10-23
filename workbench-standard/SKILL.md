@@ -54,6 +54,7 @@ Views (the console now, other views later) read only this shape and never know w
 - **Pass filters** (Needs sorting, Nothing pending, Needs change, Cut) are symbols with their counts.
 - **Bin buttons** stay fixed, with a bin's sub-bins inside it. Nothing expands or collapses. On a phone, bins are pickers. Positions and sizes come from layout studies, still open.
 - **Live:** the console takes in new records in place. Everything off the card in front comes in on its own. A change to the card in front (a new version, a new file under it, or it leaving the strip) comes in once he is idle (3 s untouched, never while a note is open or he is scrubbing): the card opens at the change and plays, so he can wait on the page and see it arrive. Until then the card says `vN waiting · R`, and the quiet Update key (R) takes it at once.
+- **An empty Needs sorting is his "nothing waiting" signal** (23 Oct): he leaves the page on that pass, and new work pops up there to sort. Keep it honest: only work for him to sort lands there, and nothing that waits on him sits anywhere else.
 - **New code reloads itself** (his A+C, 23 Oct): when the console code changes, the page reloads on its own once he is idle, and comes back where he was (card, version, playhead, play or pause, drafts). Nothing moves while a note is open, a drag is live or a mark is in flight.
 
 ## Keys by travel
