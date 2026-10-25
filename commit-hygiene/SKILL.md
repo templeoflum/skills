@@ -1,11 +1,11 @@
 ---
 name: commit-hygiene
-description: How studio work is committed, pushed and merged - scoped commits, a visibility and secrets check before every push, main only by PR, Git LFS for media, archive never delete. Use whenever committing, pushing, opening or merging a PR, or adding media or large files to a repo.
+description: How studio work is committed, pushed and merged - scoped commits, a visibility and secrets check before every push, PRs through role bots, Git LFS for media, archive never delete. Use whenever committing, pushing, opening or merging a PR, or adding media or large files to a repo.
 ---
 
 # Commit hygiene
 
-Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no board, no CI and no bots. GitHub holds code; records are plain files in each project.
+Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no board and no CI. GitHub holds code; records are plain files in each project.
 
 ## Commits
 
@@ -23,7 +23,6 @@ Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no b
 
 ## Main
 
-- **Main changes only by PR.** Work goes on a branch.
 - **PRs go through role bots:** `~/work/studio-operations/ops/ghapps/gh_as.sh <role> pr create|merge …`, so his Slack shows which role did what. The roles are `om` and `engineer` (all his repos), plus `crew` and `auditor` (studio-operations only). `git push` is unchanged. He checks in from Slack, so PR titles and bodies say the outcome first and plainly.
 - There is no CI. Check the change yourself before asking for a merge.
 
