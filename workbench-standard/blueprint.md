@@ -52,9 +52,10 @@ Sign-off records that a blueprint is approved. It is its own thing, kept apart f
   Taking one back is a line too: `"signed": null, "clears": true`.
 - **Only Hedawn signs.** In the blueprint viewer, Sign off · rev N is its own key in the viewer's head, away from Works · Change · Cut. It is pressed, never a letter key. It signs the sheet in front at its newest rev, and every page of it (n of N). On a signed sheet the same key reads Take back. It shows on the Bench and on a card's Blueprint, not on References.
 - **A sheet with no rev can't be signed.** Its title line must carry `rev N` first; until then its block says "no rev" and there is no key.
+- **Revs never go backwards.** A sheet's rev is one past its highest archived rev, even when a drawing from an earlier rev is brought back.
 - **A new rev starts Not signed.** Earlier revisions keep their sign-off.
 - **The viewer draws the block live** from the record, so a sign-off shows at once with no redraw. The renderer prints the same block when a sheet is redrawn (`render/soblock.py`, class `signoff-block`).
-- **Nothing drawn is covered.** The viewer puts the block in the corner only when the sheet prints it there, or the corner was measured clear (`"corner": "clear"` in its entry). On any other sheet the block shows under the sheet, at the right, until the sheet is redrawn as a new rev with the corner clear.
+- **Nothing drawn is covered.** The viewer puts the block in the corner only when the sheet prints it there, or the corner was measured clear (`"corner": "clear"` in its entry). On any other sheet the block shows under the sheet, at the right, until its next real revision, which clears the corner as part of that rev. No rev is made only to move the block.
 
 ## Sources
 
