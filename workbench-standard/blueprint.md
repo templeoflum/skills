@@ -46,13 +46,15 @@ Each state is a fixed word. On paper it's a word in a box, and in the Index it's
 Sign-off records that a blueprint is approved. It is its own thing, kept apart from marks: Works / Change / Cut still judge work, and a Works is not a sign-off. Old marks are never turned into sign-offs.
 
 - **The block.** Every sheet carries a sign-off block in a fixed corner, like the title block on a drawing: 536 × 136 at 940, 840. Nothing else is drawn there. The top row has the code and name, then the newest rev and its state. Under it are the revisions, newest first, three shown, each with Rev, Drawn by, Drawn, Signed off by and Signed. Older revisions are listed in the sheet's md. A sheet nobody has signed says **Not signed** plainly.
-- **Who drew it** comes from the sheet's own entry (`by`, the seat, and `at`) in `sheets.json` or `card.json`. Seats are named by role.
+- **Who drew it** comes from the sheet's own entry: `by` (the seat, named by role), `at`, and `history` (`[{rev, by, at}]`) for older revisions. On a card that entry is in `sheets.json` and `card.json`. On the Bench it is `blueprint/drawn.json`, keyed by sheet code. With no entry, the date comes from git and the seat reads "not recorded".
 - **Who signed and when** comes only from `signoffs.jsonl` beside the blueprint. It has one line per sign-off, added to the end and never edited:
   `{"sheet": "03r", "rev": 5, "signed": true, "by": "Hedawn", "at": "2026-10-26T07:00:00Z"}`
   Taking one back is a line too: `"signed": null, "clears": true`.
-- **Only Hedawn signs.** In the blueprint viewer, Sign off is its own key, away from Works · Change · Cut. It signs the sheet in front at its newest rev, and every page of it (n of N).
+- **Only Hedawn signs.** In the blueprint viewer, Sign off · rev N is its own key in the viewer's head, away from Works · Change · Cut. It is pressed, never a letter key. It signs the sheet in front at its newest rev, and every page of it (n of N). On a signed sheet the same key reads Take back. It shows on the Bench and on a card's Blueprint, not on References.
+- **A sheet with no rev can't be signed.** Its title line must carry `rev N` first; until then its block says "no rev" and there is no key.
 - **A new rev starts Not signed.** Earlier revisions keep their sign-off.
-- **The viewer draws the block live** from the record, so a sign-off shows at once with no redraw. The renderer prints the same block when a sheet is redrawn.
+- **The viewer draws the block live** from the record, so a sign-off shows at once with no redraw. The renderer prints the same block when a sheet is redrawn (`render/soblock.py`, class `signoff-block`).
+- **Nothing drawn is covered.** The viewer puts the block in the corner only when the sheet prints it there, or the corner was measured clear (`"corner": "clear"` in its entry). On any other sheet the block shows under the sheet, at the right, until the sheet is redrawn as a new rev with the corner clear.
 
 ## Sources
 
