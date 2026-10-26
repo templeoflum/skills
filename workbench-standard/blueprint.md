@@ -55,7 +55,7 @@ Sign-off records that a blueprint is approved. It is its own thing, kept apart f
 - **Revs never go backwards.** A sheet's rev is one past its highest archived rev, even when a drawing from an earlier rev is brought back.
 - **A new rev starts Not signed.** Earlier revisions keep their sign-off.
 - **The viewer draws the block live** from the record, so a sign-off shows at once with no redraw. The renderer prints the same block when a sheet is redrawn (`render/soblock.py`, class `signoff-block`).
-- **Nothing drawn is covered.** The viewer puts the block in the corner only when the sheet prints it there, or the corner was measured clear (`"corner": "clear"` in its entry). On any other sheet the block shows under the sheet, at the right, until its next real revision, which clears the corner as part of that rev. No rev is made only to move the block.
+- **Nothing drawn is covered.** The viewer puts the block in the corner only when the sheet prints it there, or the corner was measured clear (`"corner": "clear"` in its entry). Every sheet is drawn with its corner clear (nothing in x ≥ 928 and y ≥ 828) and prints the block there, folded into the drawing (Hedawn, 26 Oct). A sheet that still has drawing in the corner is redrawn as a new rev that clears it, with the old rev archived. The under-the-sheet block is only a fallback for a sheet not yet redrawn.
 
 ## Sources
 
