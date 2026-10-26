@@ -29,17 +29,30 @@ Each state is a fixed word. On paper it's a word in a box, and in the Index it's
 | As built | The Bench: drawn from the live code and re-measured | blue box | green |
 | Built, not re-measured | The Bench: on the bench, but the drawing isn't checked against the code | blue box | light blue |
 | To build | The Bench: approved, not yet built | — | — |
-| Signed off | A card: his Works stands on the newest revision | green box | green |
+| Signed off | His sign-off stands on the newest revision (the sign-off record, not marks) | green box | green |
 | Change asked | A card: his Change stands on the newest revision | orange box | amber |
-| Awaiting sign-off | Not yet marked on the newest revision | amber box | amber |
+| Awaiting sign-off | Nobody has signed the newest revision | amber box | amber |
 | **Parked** | Set aside, kept as drawn | **red dashed box** | **red, dashed** |
 
-**Parked is always red, like a stoplight.** Red means parked and nothing else, on any sheet or in any index. A card's state comes only from his marks, never from the studio's opinion.
+**Parked is always red, like a stoplight.** Red means parked and nothing else, on any sheet or in any index. A sheet's state comes only from his sign-off and his marks, never from the studio's opinion.
 
 ## Revisions
 
 - **A redrawn sheet keeps its earlier revision.** On the Bench it goes in `archive/<sheet>-rev<n>`. On a card, the earlier revision stays as the file it was, and the sheet names that file.
 - **Each sheet lists its own revisions,** newest first: what changed, when, and the marks he made on each.
+
+## Sign-off
+
+Sign-off records that a blueprint is approved. It is its own thing, kept apart from marks: Works / Change / Cut still judge work, and a Works is not a sign-off. Old marks are never turned into sign-offs.
+
+- **The block.** Every sheet carries a sign-off block in a fixed corner, like the title block on a drawing: 536 × 136 at 940, 840. Nothing else is drawn there. The top row has the code and name, then the newest rev and its state. Under it are the revisions, newest first, three shown, each with Rev, Drawn by, Drawn, Signed off by and Signed. Older revisions are listed in the sheet's md. A sheet nobody has signed says **Not signed** plainly.
+- **Who drew it** comes from the sheet's own entry (`by`, the seat, and `at`) in `sheets.json` or `card.json`. Seats are named by role.
+- **Who signed and when** comes only from `signoffs.jsonl` beside the blueprint. It has one line per sign-off, added to the end and never edited:
+  `{"sheet": "03r", "rev": 5, "signed": true, "by": "Hedawn", "at": "2026-10-26T07:00:00Z"}`
+  Taking one back is a line too: `"signed": null, "clears": true`.
+- **Only Hedawn signs.** In the blueprint viewer, Sign off is its own key, away from Works · Change · Cut. It signs the sheet in front at its newest rev, and every page of it (n of N).
+- **A new rev starts Not signed.** Earlier revisions keep their sign-off.
+- **The viewer draws the block live** from the record, so a sign-off shows at once with no redraw. The renderer prints the same block when a sheet is redrawn.
 
 ## Sources
 
@@ -66,4 +79,5 @@ Each state is a fixed word. On paper it's a word in a box, and in the Index it's
 - Every sheet is 1500 × 1000.
 - Every title line has a code, a name, a revision and a state.
 - Every sheet has its md.
+- Every sheet keeps the sign-off corner clear, and its block reads from the record.
 - The viewer opens each sheet whole at his window, with no errors.
