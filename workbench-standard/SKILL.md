@@ -78,6 +78,10 @@ Splitting the passes made him "less stressed and more confident in my choices, n
 
 Keep this split in any tool that asks him to judge work. Never merge the passes into one "fix it now" step. Archive, don't delete.
 
+## Blueprints
+
+The Bench and every card with a blueprint draw it to one standard: landscape sheets at the type floor, an Index, revisions, fixed state words (parked always red), and a source for every piece. See `blueprint.md`.
+
 ## Not in the standard
 
 Rounds, cards, passes and batches are words for a process or a view, not for work. A project may use them inside its own process. What it hands the workbench is works, versions, formats and marks.
