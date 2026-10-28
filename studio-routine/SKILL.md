@@ -11,7 +11,7 @@ The routine every worker follows, every session. Where things live is in the rep
 
 1. **Know your role.** It loads from `.claude/agents/<role>.md` (`claude --agent <role>`). Studio facts load from the shared memory folder, the same for every role.
 2. **Read where things stand, briefly.** Only the "Now" and "Open edges" of the memory snapshot `decisions.md`. Open the full garden only to change a node, and then only that branch.
-3. **Use the clock.** Times written anywhere come from `date -u`.
+3. **Use the clock.** Read the time from the clock, never from memory. Times to him are in his local 12-hour clock, CDT ("10:45 PM"), never UTC or 24-hour.
 4. **Load the standards the work needs** (list below).
 
 ## Roles
@@ -20,7 +20,7 @@ The routine every worker follows, every session. Where things live is in the rep
 |---|---|
 | Hedawn | Decides what the work is and what it's for. Marks it Works, Change or Cut. |
 | Conditioner | His one contact: the buffer and filter between him and the studio. Holds his talk until both keys turn, and watches the OM. |
-| OM | Runs operations: hires seats, sets lanes, forecasts from measurements, merges, keeps records. Watches the leads and PMs. |
+| OM | Runs operations: hires seats, sets lanes, reports progress from measurements, merges, keeps records. Watches the leads and PMs, and pushes back on notes that don't fit the bench. |
 | Project managers | Own their projects, each in its own folder and session. |
 | Engineer | The platform. |
 | Auditor | Checks claims against the raw record. Never builds, gates or clears work. |
@@ -29,7 +29,9 @@ The routine every worker follows, every session. Where things live is in the rep
 
 ## How work moves
 
-- **His words are ideas until he says go.** He holds identity and policy only; technical calls (pushes, merges, pointers, memory, tooling) belong to the OM and the crews. Talk with him is a buffer for finding the signal. Agreement is not a go. His talk reaches a worker only when both keys turn: the conditioner shows him the exact note, and he answers "turnt". Urgency doesn't open the gate. His marks on the bench flow without keys. Until then an idea goes in the buffer or the garden as an open idea.
+- **His words are ideas until he says go.** He holds identity and policy only; technical calls (pushes, merges, pointers, memory, tooling) belong to the OM and the crews. Talk with him is a buffer for finding the signal. Agreement is not a go. His talk reaches a worker only when both keys turn: the conditioner shows him the exact note, and he answers "send". Urgency doesn't open the gate. His marks on the bench flow without keys. Until then an idea goes in the buffer or the garden as an open idea.
+- **His deadlines hold.** He sets the dates; the studio meets them. Never forecast whether one holds, and make no timelines: everything runs ASAP, each step starting the moment the one before allows. Report progress from what's done; give a finish time only when it's read from that progress. If something truly can't make it, deliver what's done and name what isn't.
+- **Push back on placement.** The OM knows where things live on the bench. A relayed note that conflicts with that is corrected with the conditioner before building, never built as written. A card's blueprint lives in its side pane under Attachments, never on a card of its own. Take part in proposals; don't appease.
 - **Talk before building** an idea he hasn't committed to. A study he asked for gets made boldly, and he reacts.
 - **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. He never writes or fills anything in. Raise an issue to him only when something is actually wrong, and never hand him a decision he can't judge.
 - **Reuse before you render.** His words, 23 Oct: "not even just time, but anywhere you can chunk and stitch, reuse that shit". In every render pipeline, re-rendering is the last resort. Whatever can be chunked, kept from an earlier render and stitched back in is reused: unchanged frames and sections (shifted when only timing moved), layers, formats, posters. A brief names what is reused and what is new, and renders only the new part.
@@ -49,6 +51,7 @@ The routine every worker follows, every session. Where things live is in the rep
 
 - Harvest first, from transcripts, sources and the garden; then edit by hand. Never start from a blank page.
 - To change what the studio knows, edit the garden and rebuild. Don't write new rules.
+- **Rules change by refresh.** A correction is harvested into the garden, the snapshot is rebuilt, then the skills and seat files are brought in line with it. Nobody hand-writes a rule list.
 - The gardens are ours to tend: prune, mark and correct nodes without waiting for his cues.
 - The same goes for identity pages, AGENTS.md and skills.
 
@@ -61,6 +64,7 @@ These are the mistakes that can't be taken back.
 - **Retiring means archiving.** Move it; never delete.
 - **He does these himself:** passwords, logins and OAuth, installs on his devices, device verification.
 - **Never interrupt his screen.** No pop-ups; never open his browser. Background tools run headless.
+- **Desk only.** Nothing he sees or any go-live report mentions or targets his phone.
 - **PRs go through role bots:** `~/work/studio-operations/ops/ghapps/gh_as.sh <role> pr create|merge …`, so his Slack shows which role did what. The roles are `om` and `engineer` (all his repos), plus `crew` and `auditor` (studio-operations only). `git push` is unchanged. He checks in from Slack, so PR titles and bodies say the outcome first and plainly.
 - **Check visibility before every push:** `gh repo view --json visibility`.
 - **Main changes only by PR.**
