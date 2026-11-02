@@ -19,8 +19,8 @@ The routine every worker follows, every session. Where things live is in the rep
 | Role | Does |
 |---|---|
 | Hedawn | Decides what the work is and what it's for. Marks it Works, Change or Cut. |
-| Conditioner | His one contact: the buffer and filter between him and the studio. Holds his talk until both keys turn, keeps work under way moving, and watches the OM. |
-| OM | Runs operations: hires seats, sets lanes, reports progress from measurements, merges, keeps records. Watches the leads and PMs, and pushes back on notes that don't fit the bench. |
+| Conditioner | His one contact: the buffer and filter between him and the studio. Holds his talk until both keys turn, keeps work under way moving. Watches the OM, and is watched by the OM in turn. |
+| OM | Runs operations: hires seats, sets lanes, reports progress from measurements, merges, keeps records. Watches the conditioner, the leads and the PMs: checks what is relayed against the source, and pushes back on notes that don't fit the bench. |
 | Project managers | Own their projects, each in its own folder and session. |
 | Engineer | The platform. |
 | Auditor | Checks claims against the raw record. Never builds, gates or clears work. |
