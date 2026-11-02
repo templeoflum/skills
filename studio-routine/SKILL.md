@@ -19,7 +19,7 @@ The routine every worker follows, every session. Where things live is in the rep
 | Role | Does |
 |---|---|
 | Hedawn | Decides what the work is and what it's for. Marks it Works, Change or Cut. |
-| Conditioner | His one contact: the buffer and filter between him and the studio. Holds his talk until both keys turn, and watches the OM. |
+| Account lead | His one contact: the buffer and filter between him and the studio. Holds his talk until both keys turn, keeps work under way moving, and watches the OM. |
 | OM | Runs operations: hires seats, sets lanes, reports progress from measurements, merges, keeps records. Watches the leads and PMs, and pushes back on notes that don't fit the bench. |
 | Project managers | Own their projects, each in its own folder and session. |
 | Engineer | The platform. |
@@ -29,11 +29,11 @@ The routine every worker follows, every session. Where things live is in the rep
 
 ## How work moves
 
-- **His words are ideas until he says go.** He holds identity and policy only; technical calls (pushes, merges, pointers, memory, tooling) belong to the OM and the crews. Talk with him is a buffer for finding the signal. Agreement is not a go. His talk reaches a worker only when both keys turn: the conditioner shows him the exact note, and he answers "send". Urgency doesn't open the gate. His marks on the bench flow without keys. Until then an idea goes in the buffer or the garden as an open idea.
-- **His deadlines hold.** He sets the dates; the studio meets them. Never forecast whether one holds, and make no timelines: everything runs ASAP, each step starting the moment the one before allows. Report progress from what's done; give a finish time only when it's read from that progress. If something truly can't make it, deliver what's done and name what isn't.
-- **Push back on placement.** The OM knows where things live on the bench. A relayed note that conflicts with that is corrected with the conditioner before building, never built as written. A card's blueprint lives in its side pane under Attachments, never on a card of its own. Take part in proposals; don't appease.
+- **His words are ideas until he says go.** He holds identity and policy only; technical calls (pushes, merges, pointers, memory, tooling) belong to the OM and the crews. Talk with him is a buffer for finding the signal. Agreement is not a go. His talk reaches a worker only when both keys turn: the account lead shows him the exact note, and he answers "send". Urgency doesn't open the gate. His marks on the bench flow without keys. Until then an idea goes in the buffer or the garden as an open idea.
+- **His deadlines hold.** He sets the dates; the studio meets them. Never forecast whether one holds, and make no timelines: everything runs ASAP, each step starting the moment the one before allows. Keeping it running is the account lead's job: when work already under way is stuck, the account lead gets it moving without asking him first. Report progress from what's done; give a finish time only when it's read from that progress. If something truly can't make it, deliver what's done and name what isn't.
+- **Push back on placement.** The OM knows where things live on the bench. A relayed note that conflicts with that is corrected with the account lead before building, never built as written. A card's blueprint lives in its side pane under Attachments, never on a card of its own. Take part in proposals; don't appease.
 - **Talk before building** an idea he hasn't committed to. A study he asked for gets made boldly, and he reacts.
-- **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. He never writes or fills anything in. Raise an issue to him only when something is actually wrong, and never hand him a decision he can't judge.
+- **Show, then he marks.** Work for him goes into the workbench as a record (see `workbench-standard`). He marks Works, Change or Cut, in separate passes. His word in chat counts the same as a mark: what he has already said, he never marks again. The account lead relays it, and it is recorded on the card as "his word, via the account lead", never written into his marks file. He never writes or fills anything in. Raise an issue to him only when something is actually wrong, and never hand him a decision he can't judge.
 - **Reuse before you render.** His words, 23 Oct: "not even just time, but anywhere you can chunk and stitch, reuse that shit". In every render pipeline, re-rendering is the last resort. Whatever can be chunked, kept from an earlier render and stitched back in is reused: unchanged frames and sections (shifted when only timing moved), layers, formats, posters. A brief names what is reused and what is new, and renders only the new part.
 - **Code goes by PR to main** (see `commit-hygiene`).
 - **Shift change.** When he signs off, off-site jobs go out and polling stops.
@@ -60,8 +60,9 @@ The routine every worker follows, every session. Where things live is in the rep
 These are the mistakes that can't be taken back.
 
 - **No keys or secrets in outputs, commits or posts.** Never read or print the studio keys folder.
+- **Never bypass the private window picker.** Capture a single window, never the full screen. If macOS asks to let a capture bypass the picker, the answer is no: it hides windows he keeps private. This stands beside the keychain and the keys folder.
 - **His go first** for spending, publishing, outside messages, deleting anything, or widening access.
-- **Retiring means archiving.** Move it; never delete.
+- **Retiring creative work means archiving.** Move it; never delete. Its mistakes carry lessons. Mechanical outputs that are simply wrong (a bad render, a broken encode) carry none, and may be deleted at his go.
 - **He does these himself:** passwords, logins and OAuth, installs on his devices, device verification.
 - **Never interrupt his screen.** No pop-ups; never open his browser. Background tools run headless.
 - **Desk only.** Nothing he sees or any go-live report mentions or targets his phone.
