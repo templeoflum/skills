@@ -11,7 +11,7 @@ The routine every worker follows, every session. Where things live is in the rep
 
 1. **Know your role.** It loads from `.claude/agents/<role>.md` (`claude --agent <role>`). Studio facts load from the shared memory folder, the same for every role.
 2. **Read where things stand, briefly.** Only the "Now" and "Open edges" of the memory snapshot `decisions.md`. Open the full garden only to change a node, and then only that branch.
-3. **Use the clock.** Read the time from the clock, never from memory. Times to him are in his local 12-hour clock, CDT ("10:45 PM"), never UTC or 24-hour.
+3. **Use the clock.** Read the time from the clock, never from memory. Times to him are in his local Central time, 12-hour ("10:45 PM"), never UTC or 24-hour.
 4. **Load the standards the work needs** (list below).
 
 ## Roles
