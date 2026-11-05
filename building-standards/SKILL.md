@@ -31,7 +31,7 @@ The standard has been run once by a fresh session on a real job, Hedawn has mark
 1. **Gather the real runs.** List every time the job was done, with paths and dates: files, rounds, briefs, and his marks and corrections. Work from the record, not memory.
    *Why:* people explaining a job leave out their own decisions; the record doesn't.
 2. **Pick the best recent run** and draft from it. Fold in every correction he made across all runs, not just the last.
-3. **Ask only for missing decisions.** Where the record doesn't show why a choice was made, ask him in talk, one line each, three at most. His answers are ideas until he says go.
+3. **Ask him only what the work is and what it's for.** Everything else the record doesn't show is the studio's call: make it and write down why. His answers are ideas until he says go.
 4. **Split fixed from open.**
    - Fixed: triggers, hand-offs, names, formats, delivery, checks.
    - Open: the creative calls. Name them so nobody fixes them by accident.
