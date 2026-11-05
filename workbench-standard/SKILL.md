@@ -57,6 +57,8 @@ Views (the console now, other views later) read only this shape and never know w
 - **An empty Needs sorting is his "nothing waiting" signal** (23 Oct): he leaves the page on that pass, and new work pops up there to sort. Keep it honest: only work for him to sort lands there, and nothing that waits on him sits anywhere else.
 - **New code reloads itself** (his A+C, 23 Oct): when the console code changes, the page reloads on its own at once, and comes back where he was (card, version, playhead, play or pause, drafts). Nothing moves while a note is open, a drag is live or a mark is in flight. His typed text never disappears ("as long as my text im riting dosnet idsaper you dont need to wait to update th ebench", 5 Nov): a bench restart needs no wait, sends ride through it, a failed send stays a draft, and his own refresh reopens the box on his words.
 
+**Paged works.** Every paged work exposes one page's recorded versions together, including page-specific tries. Page identity survives book reordering through studio-maintained IDs. Legacy position matches remain visible and explicitly unconfirmed. Each occurrence retains its source version, picks and notes. The view distinguishes saved choices from their confirmed incorporation into a named build. It opens within the card, preserves the panel and side scroller, and restores the previous place on close. The fixed panel handles repeated stepping and marking. No structural change occurs during notes, drags or sends. The studio maintains identity and build provenance; Hedawn only chooses, marks and optionally writes.
+
 ## Keys by travel
 
 The bench is for rapid sorting; every inch the mouse travels slows the flip-and-mark loop.
