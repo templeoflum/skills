@@ -61,7 +61,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 ## Privacy: public by default
 
 - None of his work needs to be private. Don't propose making a repo private to fix a finding; clean the content instead.
-- Real secrets, other people's personal data and the private parts of his exports stay out of anything public.
+- Real secrets, what could get him harmed and other people's info without consent stay out of anything public. Those are his only two limits; add none.
 - When a scan finds something, redact it and mark it. Ask him only about live keys (revoking is his job) or other people's data.
 - A dead key that has been redacted and marked revoked is not flagged again.
 

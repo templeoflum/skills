@@ -50,7 +50,7 @@ An existing-conditions survey and site walk: what exists today, where, in what s
    Writing-only projects may mark 4 and 5 "does not apply" (Literature passed this way).
 3. **Find every location, lineage first.** Search by the project's name, then by its earlier names, the ideas it grew out of, earlier versions and copies under other names. Cover the whole Mac (Spotlight names and text), Mind Not Map and `MNM_BACKUP`, the work-wiki sources, Drive, old chats, and every doc in the folders found. Write `locations.md`: per item, one line on what it is, every path, size, last changed. End with how the search was done and **where you did not look**.
    *Why:* Temple of Lum went back five times ("32 years … keep digging"), and BIC missed its software.
-4. **Draw the boundaries.** Material another project owns is listed once as theirs, never inventoried. Private material (messages, personal exports, other people's data) gets its path and whether it relates, never quotes, and stays out of git. Items under a standing hold are listed by path only.
+4. **Draw the boundaries.** Material another project owns is listed once as theirs, never inventoried. Other people's info gets its path and whether it relates, never quotes, and stays out of git. Items under a standing hold are listed by path only.
 5. **Make the git home.** README with the source groups, read-only. Commit locally, one commit per package, named with what it did. No remote without his go; check `gh repo view --json visibility` before every push (see `commit-hygiene`).
    *Why:* Signal Flow's take stock was never committed.
 6. **Record what's public.** Search his accounts logged out, then a deep web search for the project and its lineage, including archived pages (`web.archive.org`). Per item: account, post, date, link, and saved evidence in `take-stock/evidence/` (a fetched page or a screenshot), with how and when it was viewed. Mark which accounts are his only when he has confirmed it; otherwise "not confirmed". If nothing is public, say so.
@@ -84,7 +84,7 @@ An existing-conditions survey and site walk: what exists today, where, in what s
 - [ ] Every link and path in the records resolves (a script, as Signal Flow's `check.py`).
 - [ ] The tour check passes at both sizes with no errors.
 - [ ] Every item has exactly one verdict.
-- [ ] No other project's material is inventoried; no private text is quoted; holds are respected.
+- [ ] No other project's material is inventoried; no other people's info is quoted; holds are respected.
 - [ ] The work is committed locally.
 - [ ] Nothing in the record asks him to write; a Works mark needs no note.
 - [ ] Nothing new was made, fixed or decided (format, posts, next steps).

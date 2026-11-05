@@ -18,7 +18,7 @@ Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no b
 
 1. **Visibility:** `gh repo view --json visibility`. Know where it's going.
 2. **Public by default.** None of his work needs to be private, so a public repo is fine. Clean the content; don't hide the repo.
-3. **Nothing that must stay out:** no keys or secrets, no other people's personal data, no private parts of his exports. If you find one, redact it and mark it; ask him only about live keys or other people's data.
+3. **Nothing that must stay out:** no keys or secrets, nothing that could get him harmed (auth, account or money details, home address, exact location), no other people's info without consent. If you find one, redact it and mark it; ask him only about live keys or other people's data.
 4. **Pushing a new repo or remote is publishing,** and needs his go.
 
 ## Main
