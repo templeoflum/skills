@@ -40,7 +40,7 @@ The standard has been run once by a fresh session on a real job, Hedawn has mark
 7. **Show the run's output to Hedawn** as a workbench record, with the tester's notes. He marks Works, Change or Cut.
    - Change: revise, and test again on the next job.
    - Cut: archive the draft with the reason.
-8. **Release** as a plain skill folder, `<name>/SKILL.md` in `templeoflum/skills`, with version, source runs and the test run. That repo is public: nothing private goes in. Zips are made only on install. Every copy elsewhere becomes a pointer.
+8. **Release** as a plain skill folder, `<name>/SKILL.md` in `templeoflum/skills`, with version, source runs and the test run. That repo is public: no secrets, nothing of other people's without consent. Zips are made only on install. Every copy elsewhere becomes a pointer.
 9. **Keep it alive.** There's no "lite" version: every run follows the standard.
    - **Adapt to the case.** A run may adapt a step to fit its job. It logs the adaptation and why in `log.md`.
    - **Suggest.** Anyone running it may log a suggestion for improving it, in the same file.
@@ -54,7 +54,7 @@ The standard has been run once by a fresh session on a real job, Hedawn has mark
 - [ ] Fixed and open are both named.
 - [ ] A fresh session ran it on a real job.
 - [ ] Nothing in it asks him to write.
-- [ ] Nothing private in it, and no other copy restates it.
+- [ ] No secrets or other people's info in it, and no other copy restates it.
 
 ## The template
 
