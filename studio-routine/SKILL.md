@@ -77,6 +77,7 @@ Each standard has one home, a skill folder in `templeoflum/skills`. Everything e
 | `take-stock` | a project starts, or its stage is Take stock |
 | `building-standards` | a job has repeated about three times, or he names one to standardize |
 | `stages` | draft only: briefing visual, motion or render work |
+| `one-page-design` | any design sheet, system drawing, plan or one-page explainer, and its crew brief (the design bible) |
 | `legibility-constitution`, `narrator-bleed` | making any surface a person reads |
 | `premere-house-style` | any Premere surface |
 | `atomic-toy-lab` | building or testing an atomic toy |
