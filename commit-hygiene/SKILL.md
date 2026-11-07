@@ -33,7 +33,7 @@ Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no b
 
 ## History
 
-- **Never force-push or rewrite published history.** Fix mistakes with a new commit.
+- **Force pushes:** never a plain `--force`, `-f` or `+ref`, never to main, and never to a public repo. `--force-with-lease` is fine on a branch your own session made, in a private repo, to update a PR branch after a rebase. Main's history is never rewritten; fix mistakes there with a new commit. The guard hook enforces this.
 - **Archive, never delete.** Retired files move to an `archive/` folder, with the date in its name.
 
 ## When something blocks
