@@ -52,7 +52,7 @@ Pick the central picture from the question the sheet answers. The shape must say
 
 ## The check before the bench
 
-Before a sheet reaches the bench, the OM opens it side by side with the kept frames (the frames whose `keep` is true in `labels.json`). It goes back to the crew if any of these hold:
+Before a sheet reaches the bench, the OM opens it side by side with the references the brief named from his picks (see **His references**). It goes back to the crew if any of these hold:
 
 - it reads as a dark web page of bullets;
 - the central picture isn't the biggest thing;
@@ -62,15 +62,19 @@ Before a sheet reaches the bench, the OM opens it side by side with the kept fra
 
 The check is done by eye on a headless render. There's no score.
 
+## His references
+
+His references are the 24 one-page sheets he picked on 7 Nov 2026, listed in `research/one-page-design/design-references.md` in the private `templeoflum/studio-knowledge`. Nothing else is his reference: not the sheets he dropped, and not the 74 frames a crew marked `keep` in `labels.json`.
+
 ## In a crew brief
 
-Name this skill and point the crew at the frames. Tell them to look at the images themselves, not only the labels. Quote the template parts above. Ask for `out/METHOD.md` naming which frames each part was modelled on.
+Name this skill. Name the frames the job needs from his list, and say what each is for. Tell the crew to look at the images themselves, not only the titles. Quote the template parts above. Ask for `out/METHOD.md` naming which frames each part was modelled on. The night queue builds this part of the brief from a job's `refs` and refuses a frame that isn't on his list.
 
 ## Where the material lives
 
 Private only. Never publish it, quote it at length, or copy its images into a public repo, this one included.
 
-- Text: `knowledge/research/one-page-design/out/` in the private `templeoflum/studio-knowledge`. That covers `study.md`, `method.md`, `labels.json`, `transcript-clean.md`, `sources.md` and the deck text under `stonetronix/text/`; the 2010 deck's Basic format is near line 1485 of `OnePageDesigns-2010.txt`.
+- Text: `knowledge/research/one-page-design/out/` in the private `templeoflum/studio-knowledge`. That covers `study.md`, `method.md`, `labels.json` (a crew's labels, not his picks), `transcript-clean.md`, `sources.md` and the deck text under `stonetronix/text/`; the 2010 deck's Basic format is near line 1485 of `OnePageDesigns-2010.txt`. His picks, `design-references.md`, sit one folder up.
 - Images (frames, SimCity pages, Spore images, contact sheet): on disk beside that text, and backed up as the zip on the private release `design-bible-images-2026-11-06` of `templeoflum/studio-knowledge`. To restore, unzip it into `research/one-page-design/out/`.
 
 ## Exempt
