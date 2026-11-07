@@ -33,7 +33,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **Where things stand:** the "Now" and "Open edges" sections of `decisions.md`, which is generated from the garden.
 - **Where things live:** `AGENTS.md` in studio-operations.
 - **What he has said about a piece of work:** his marks on the bench, and his word in chat.
-- **What's next:** the open edges, his latest marks and word, and your brief. If all three are empty, take the standing background work in your lane.
+- **What's next:** the open edges, his latest marks and word, and your brief. If all three are empty, nothing new starts: an idle lane is not a stall, and nothing is made just because the queue is empty.
 - **The source over memory:** before you say how something stands, read it: the file, the mark, the PR, the live page. Summaries drift, your own included.
 
 ## Working with him
