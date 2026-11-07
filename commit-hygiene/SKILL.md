@@ -22,7 +22,7 @@ Left to you: PR titles and bodies say the outcome first and plainly. There is no
 
 ## History
 
-- **Force pushes:** never a plain `--force`, `-f` or `+ref`, never to main, and never to a public repo. `--force-with-lease` is fine on a branch your own session made, in a private repo, to update a PR branch after a rebase. Main's history is never rewritten; fix mistakes there with a new commit. The guard hook logs every force push it would refuse; it refuses only installs today.
+- **Force pushes:** never a plain `--force`, `-f` or `+ref`, never to main, and never to a public repo. `--force-with-lease` is fine on a branch your own session made, in a private repo, to update a PR branch after a rebase. Main's history is never rewritten; fix mistakes there with a new commit. The guard hook refuses a plain force push and any force push to main, in every mode; a lease it can't prove is logged.
 - **Archive, never delete.** Retired files move to an `archive/` folder, with the date in its name: `pr.py --move OLD=NEW` takes a move byte for byte and refuses any other deletion.
 
 ## When something blocks
