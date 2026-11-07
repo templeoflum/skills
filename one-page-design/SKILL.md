@@ -52,15 +52,15 @@ Pick the central picture from the question the sheet answers. The shape must say
 
 ## The check before the bench
 
-Before a sheet reaches the bench, the OM opens it side by side with the references the brief named from his picks (see **His references**). It goes back to the crew if any of these hold:
+One blind check, and no checklist. A fresh seat that had no part in making the sheet gets three things, put together by code:
 
-- it reads as a dark web page of bullets;
-- the central picture isn't the biggest thing;
-- notes float free instead of joining their spot;
-- any text overlaps;
-- it scrolls.
+- the sheet rendered headless at its size, as he would first see it;
+- what it's for, in his words, with the date and where he said it;
+- the references the brief named from his picks (see **His references**).
 
-The check is done by eye on a headless render. There's no score.
+It never sees the maker's reply or verdict. It answers one question: can the person this sheet is for use it to do what it's for? (Can a level designer build from it? Does the signal come through?) It says where that person would get stuck, pointing at the spot on the page.
+
+The answer goes to the sheet's owner. It isn't a gate or another round, and his mark stays the final word. What code can measure, such as overlapping text, a page that scrolls, or a sheet that isn't paper, is refused by code before this point, not by eye.
 
 ## His references
 
