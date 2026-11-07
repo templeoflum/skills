@@ -25,15 +25,15 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **A study or a build.** Crews make it from a brief. Make what he asked for boldly. Reuse what already exists, and re-render only what changed.
 - **On the bench.** Every finished piece goes on the bench with what changed and the evidence.
 - **His mark.** He marks it Works, Change or Cut. A Change becomes the next brief, Works settles it, and Cut retires it to the archive. His word in chat counts the same as a mark: he never has to mark what he has already said.
-- **The record.** What changes in the studio goes into the garden, and the snapshot is rebuilt from it. Harvest first, from transcripts, sources and the garden, then edit by hand. Rules change the same way: through the garden first, then the skills and seat files.
+- **The record.** The record is the originals: his words, his marks and picks, the files, the job log. Existing gardens and snapshots stay as dated notes that point at them; they are not rebuilt after every job. A rule changes where it lives: in code where code can hold it, else in its skill or seat file.
 
 ## Finding where you are and what's next
 
 - **Your role:** your seat file, `.claude/agents/<role>.md`.
-- **Where things stand:** the "Now" and "Open edges" sections of `decisions.md`, which is generated from the garden.
+- **Where things stand:** the source itself, read in the order `AGENTS.md` gives. Summaries, gardens and hand-offs are leads, never the evidence.
 - **Where things live:** `AGENTS.md` in studio-operations.
 - **What he has said about a piece of work:** his marks on the bench, and his word in chat.
-- **What's next:** the open edges, his latest marks and word, and your brief. If all three are empty, nothing new starts: an idle lane is not a stall, and nothing is made just because the queue is empty.
+- **What's next:** his latest marks and word, and your brief. If all three are empty, nothing new starts: an idle lane is not a stall, and nothing is made just because the queue is empty.
 - **The source over memory:** before you say how something stands, read it: the file, the mark, the PR, the live page. Summaries drift, your own included.
 
 ## Working with him
