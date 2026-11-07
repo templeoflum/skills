@@ -1,11 +1,11 @@
 ---
 name: commit-hygiene
-description: How studio work is committed, pushed and merged - scoped commits, a visibility and secrets check before every push, main only by PR, Git LFS for media, archive never delete. Use whenever committing, pushing, opening or merging a PR, or adding media or large files to a repo.
+description: How studio work is committed and PRed - scoped commits, every PR through ops/records/pr.py (which checks visibility, secrets and LFS), force-push limits, archive never delete. Use whenever committing, pushing, opening or merging a PR, or adding media or large files to a repo.
 ---
 
 # Commit hygiene
 
-Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no board, no CI and no bots. GitHub holds code; records are plain files in each project.
+GitHub holds code; records are plain files in each project. Trimmed 7 Nov 2026 to what `ops/records/pr.py` doesn't already do.
 
 ## Commits
 
@@ -14,27 +14,16 @@ Rewritten 22 Oct 2026, replacing the board-era standard of 14 Oct. There is no b
 - **Leave the tree clean** when the job is done: its changes committed, nothing of it left loose.
 - **Scratch stays out.** Scratch files, generated output and caches go in `.gitignore`. A deliverable that is ignored is still kept where the job can find it.
 
-## Before every push
+## PRs: `ops/records/pr.py`
 
-1. **Visibility:** `gh repo view --json visibility`. Know where it's going.
-2. **Public by default.** None of his work needs to be private, so a public repo is fine. Clean the content; don't hide the repo.
-3. **Nothing that must stay out:** no keys or secrets, nothing that could get him harmed (auth, account or money details, home address, exact location), no other people's info without consent. If you find one, redact it and mark it; ask him only about live keys or other people's data.
-4. **Pushing a new repo or remote is publishing,** and needs his go.
+Main changes only by PR, and PRs are made with `python3 ~/work/studio-operations/ops/records/pr.py --src … --repo … --expect private|public --branch … --role … --title … --body-file … FILES`. It takes the named files only, in its own worktree; refuses a file over 10 MB that isn't in Git LFS; scans every file for keys and sealed terms; checks the repo's visibility against `--expect`; never pushes main and never forces; and opens the PR as the role, so his Slack shows who did what. Read its refusal and fix the content; don't work around it.
 
-## Main
-
-- **Main changes only by PR.** Work goes on a branch.
-- **PRs go through role bots:** `~/work/studio-operations/ops/ghapps/gh_as.sh <role> pr create|merge …`, so his Slack shows which role did what. The roles are `om` and `engineer` (all his repos), plus `crew` and `auditor` (studio-operations only). `git push` is unchanged. He checks in from Slack, so PR titles and bodies say the outcome first and plainly.
-- There is no CI. Check the change yourself before asking for a merge.
-
-## Media
-
-- Media, and any file over 10 MB, goes in **Git LFS** or stays outside git. Check LFS is set up for the repo first.
+Left to you: PR titles and bodies say the outcome first and plainly. There is no CI, so check the change yourself before asking for a merge. A new repo or remote is publishing, and needs his go.
 
 ## History
 
-- **Force pushes:** never a plain `--force`, `-f` or `+ref`, never to main, and never to a public repo. `--force-with-lease` is fine on a branch your own session made, in a private repo, to update a PR branch after a rebase. Main's history is never rewritten; fix mistakes there with a new commit. The guard hook enforces this.
-- **Archive, never delete.** Retired files move to an `archive/` folder, with the date in its name.
+- **Force pushes:** never a plain `--force`, `-f` or `+ref`, never to main, and never to a public repo. `--force-with-lease` is fine on a branch your own session made, in a private repo, to update a PR branch after a rebase. Main's history is never rewritten; fix mistakes there with a new commit. The guard hook logs every force push it would refuse; it refuses only installs today.
+- **Archive, never delete.** Retired files move to an `archive/` folder, with the date in its name: `pr.py --move OLD=NEW` takes a move byte for byte and refuses any other deletion.
 
 ## When something blocks
 
