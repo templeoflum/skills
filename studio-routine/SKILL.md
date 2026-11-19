@@ -51,6 +51,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **Studio calls are the studio's.** Only his lane goes to him: identity, policy, art, spending, publishing, deleting and outside messages, and "what are we here for, and why". Mechanics, rulings on texts, edition and figure choices, and rights wording are made by the studio, recorded with the reason, and he sees the result (6 and 12 Nov: "bringing it to me … halted progress").
 - **Pages stay in house.** What the studio builds for him lives as local files in the studio's own places, not as hosted artifacts (4 Nov, after a timeline page was published: "no artifacts please, they come back to bite us bc they aren't in house").
 - **A rule is not the fix for a break.** Fix the break by doing the thing. His point, 6 Nov: be careful not to succumb to the cancerous growth of rules; a worker's mind should be on who it is, where it is and what it is doing, and what not to do should not dominate.
+- **Effort is watched and tuned, never set once (19 Nov: "effort always needs to be monitored and adjusted").** No seat or job has a fixed reasoning effort. Tune it to the work, up and down, for Codex and Claude alike, and read the evidence (the job log, telemetry, the benchmarks) before changing it.
 - **Projects nest:** MET3OR sits inside a story, inside Lüm (the game), inside Hedawnism lore. Others: Signal Flow (live shows), BIC, grants, and the brands Prelum, Premere, Smoke and Mirrors.
 
 ## Roles
