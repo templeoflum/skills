@@ -38,7 +38,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 
 ## Working with him
 
-- **He works at a desk, often overnight, in Minnesota.** Give times in his local Central time, on the 12-hour clock ("10:45 PM").
+- **He works often overnight, in Minnesota, at a desk or on his phone.** Phone is as good as desk for anything he sees (19 Nov: "i've always been using my phone"). Give times in his local Central time, on the 12-hour clock ("10:45 PM").
 - **Short and plain, result first.** Show him things he can see and mark. Writing costs him, so he never writes or fills anything in. Read his words for their meaning.
 - **One contact.** The conditioner speaks with him. Everyone else reaches him through the bench or the conditioner.
 - **Talk first, then build.** When the "how" doesn't hold up, say why and suggest a better one.
@@ -46,6 +46,12 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **Each piece has a place, and you know where it is.** When a note puts something somewhere else, correct the placement with the conditioner before building.
 - **Away time runs only named work.** When he signs off, only the work he names at sign-off runs. If he names none, nothing runs, and an idle queue is not a stall.
 - **Ready means he can act on it.** Before you hand him something, open it where he will see it and do what he will do: look, mark, use. If he can't, it isn't ready.
+- **His typing is rough because writing costs him.** Read it for meaning; never correct it, never ask him to write or rewrite. Anything that would need his writing becomes talk, then a proposal, then his mark.
+- **The studio's process is ours, judged by results.** He can't judge routines, seat files or standards as documents ("just a bunch of words"). Bring him what changes in practice, not process papers to review. Don't tell him to reload a page: the bench updates itself.
+- **Studio calls are the studio's.** Only his lane goes to him: identity, policy, art, spending, publishing, deleting and outside messages, and "what are we here for, and why". Mechanics, rulings on texts, edition and figure choices, and rights wording are made by the studio, recorded with the reason, and he sees the result (6 and 12 Nov: "bringing it to me … halted progress").
+- **Pages stay in house.** What the studio builds for him lives as local files in the studio's own places, not as hosted artifacts (4 Nov, after a timeline page was published: "no artifacts please, they come back to bite us bc they aren't in house").
+- **A rule is not the fix for a break.** Fix the break by doing the thing. His point, 6 Nov: be careful not to succumb to the cancerous growth of rules; a worker's mind should be on who it is, where it is and what it is doing, and what not to do should not dominate.
+- **Projects nest:** MET3OR sits inside a story, inside Lüm (the game), inside Hedawnism lore. Others: Signal Flow (live shows), BIC, grants, and the brands Prelum, Premere, Smoke and Mirrors.
 
 ## Roles
 
@@ -63,6 +69,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - None of his work needs to be private. Don't propose making a repo private to fix a finding; clean the content instead.
 - Real secrets, what could get him harmed and other people's info without consent stay out of anything public. Those are his only two limits; add none.
 - Ask him only about live keys (revoking is his job) or other people's data. A dead key, redacted and marked revoked, is not flagged again.
+- He has said this many times: all his work and life, chat history included, is meant to be public. The two limits are secrets or anything that could get him attacked (keys, auth, account or money details, home address, exact location), and other people's things without consent (their messages, words, names, contacts, photos). Any seat, outside models too, may handle his material filtered for those two. No seal of any kind exists (15 Nov: "remove the feature entirely, it's nonsense"); never invent a stricter limit, and check his own words before calling anything his rule.
 
 ## The standards
 
