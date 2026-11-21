@@ -16,7 +16,7 @@ GitHub holds code; records are plain files in each project. Trimmed 7 Nov 2026 t
 
 ## PRs: `ops/records/pr.py`
 
-Main changes only by PR, and PRs are made with `python3 ~/work/studio-operations/ops/records/pr.py --src … --repo … --expect private|public --branch … --role … --title … --body-file … FILES`. It takes the named files only, in its own worktree; refuses a file over 10 MB that isn't in Git LFS; scans every file for keys and sealed terms; checks the repo's visibility against `--expect`; never pushes main and never forces; and opens the PR as the role, so his Slack shows who did what. Read its refusal and fix the content; don't work around it.
+Main changes only by PR, and PRs are made with `python3 ~/work/studio-operations/ops/records/pr.py --src … --repo … --expect private|public --branch … --role … --title … --body-file … FILES`. It takes the named files only, in its own worktree; refuses a file over 10 MB that isn't in Git LFS; scans every file for keys and producer-excluded terms; checks the repo's visibility against `--expect`; never pushes main and never forces; and opens the PR as the role, so his Slack shows who did what. Read its refusal and fix the content; don't work around it.
 
 Left to you: PR titles and bodies say the outcome first and plainly. There is no CI, so check the change yourself before asking for a merge. A new repo or remote is publishing, and needs his go.
 
