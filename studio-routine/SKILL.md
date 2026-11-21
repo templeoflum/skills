@@ -38,7 +38,8 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 
 ## Working with him
 
-- **He works often overnight, in Minnesota.** Give times in his local Central time, on the 12-hour clock ("10:45 PM").
+- **He works at a desk, often overnight, in Minnesota.** Give times in his local Central time, on the 12-hour clock ("10:45 PM").
+- **Desktop surfaces only (21 Nov).** Nothing needs to be readable on a phone. No phone layouts or phone checks.
 - **Short and plain, result first.** Show him things he can see and mark. Writing costs him, so he never writes or fills anything in. Read his words for their meaning.
 - **One contact.** The conditioner speaks with him. Everyone else reaches him through the bench or the conditioner.
 - **Talk first, then build.** When the "how" doesn't hold up, say why and suggest a better one.

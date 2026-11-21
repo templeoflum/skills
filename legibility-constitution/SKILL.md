@@ -21,7 +21,7 @@ Run every gate on every surface, after content is complete, before delivery. Eac
 
 **Scroll & containment**
 - **G5 Contained scroll** — Each scrollable pane owns its scroll (`min-height:0` on the flex/grid parents) instead of growing the page. FAIL if a pane's overflow scrolls the page. [conv/impl]
-- **G6 Gesture lock** — The mobile lock is present verbatim: html/body `overflow:hidden` + `overscroll-behavior:none`; inner scroller `overscroll-behavior:contain`; `touch-action:none` on draggables; a non-passive `touchmove` `preventDefault` while a drag is live. FAIL if any clause is missing. [conv/impl]
+- **G6 Gesture lock** — Retired 21 Nov 2026 by Hedawn. No phone layouts or phone checks.
 
 **Pinning & persistence**
 - **G7 No double-back** — Anything a user would re-derive is visible without an action: group markers, navigation, the context/questions zone. FAIL if reaching a fact requires selecting something first. [ev: information foraging; COGA "don't rely on memory"]
@@ -58,6 +58,8 @@ Run every gate on every surface, after content is complete, before delivery. Eac
 
 ## Scope
 
+Desktop surfaces only (Hedawn, 21 Nov 2026). Phone layouts and phone checks are out of scope.
+
 Which gates bind which surface, and where density is permitted.
 
 | Surface | Binds | Relaxation |
@@ -76,7 +78,7 @@ Density is a property of the surface, not the content. The same fact is one line
 
 ## The build-checkable subset
 
-These gates are machine-verifiable and are non-negotiable lint gates: **G3** (`prefers-reduced-motion` block present) · **G4** (CLS ≈ 0 on disclosure) · **G6** (gesture-lock clauses present) · **G12** (sentence linter: warn ≥ 25, fail ≥ 30) · **G18** (no color-only distinction) · **G20** (≥ 3:1 non-text contrast) · **G21** (`max-width` ≤ 75ch) · **G22** (font family is system sans, not a dyslexia font; no `text-align: justify` on body) · **G24** (`target=_blank rel=noopener` on external links). Wire these into the build; the rest are read-and-verify.
+These gates are machine-verifiable and are non-negotiable lint gates: **G3** (`prefers-reduced-motion` block present) · **G4** (CLS ≈ 0 on disclosure) · **G12** (sentence linter: warn ≥ 25, fail ≥ 30) · **G18** (no color-only distinction) · **G20** (≥ 3:1 non-text contrast) · **G21** (`max-width` ≤ 75ch) · **G22** (font family is system sans, not a dyslexia font; no `text-align: justify` on body) · **G24** (`target=_blank rel=noopener` on external links). Wire these into the build; the rest are read-and-verify.
 
 ## Standing rules swept in
 
