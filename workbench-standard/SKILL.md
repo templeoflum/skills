@@ -47,6 +47,12 @@ All plain files in the project's folder. GitHub holds code only. The PM keeps th
 
 Views (the console now, other views later) read only this shape and never know which project they show.
 
+## Tasks entries
+
+A Tasks entry is the active task list. Keep its Tasks layout in every new round.
+Completed work belongs in the Update note or a history attachment and leaves the active list.
+When the list is drained, the entry shows a short empty state.
+
 ## The console
 
 Desktop surfaces only (Hedawn, 21 Nov 2026). No phone layouts or phone checks.
