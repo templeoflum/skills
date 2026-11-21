@@ -49,6 +49,8 @@ Views (the console now, other views later) read only this shape and never know w
 
 ## The console
 
+Desktop surfaces only (Hedawn, 21 Nov 2026). No phone layouts or phone checks.
+
 - **Fixed:** the control panel and the side scroller (the four-slot window) stay the same whatever is reviewed. A project changes only its keys, in its profile.
 - **Cards** show in the side scroller, one card per work. The card list has a set height; it filters and scrolls, and keeps its place in each bin. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
 - **Pass filters** (Needs sorting, Nothing pending, Needs change, Cut) are symbols with their counts.
