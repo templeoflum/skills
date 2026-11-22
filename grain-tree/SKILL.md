@@ -1,157 +1,156 @@
 ---
 name: grain-tree
-description: Sort, split, organize or classify a set or a purpose into a tree. Use when parts need clear boundaries, one organizing question per split, explicit grain, and a checkable place for every item.
+description: Sort, split, organize or classify a set or a purpose into an interactive grain tree. Use when the result should be a single HTML page with bounded groups, expandable branches, checker badges, law tips and Copy JSON.
 ---
 
-# Blank generic template
+# Grow the tree
 
-```text
-Whole: ___ · ___ items
-  Done when: ___
-  Grain: ___
-  Target per cell: ___
-  Cut: ___? · relation: ___
-  Branch: ___ · ___ items · cut: ___? · relation: ___
-    Leaf: ___ · ___ items · ___; ___; ___
-    Leaf: ___ · ___ items · ___; ___; ___
-  Branch: ___ · ___ items · cut: ___? · relation: ___
-    Leaf: ___ · ___ items · ___; ___; ___
-    Leaf: ___ · ___ items · ___; ___; ___
-Residue: ___ · ___ items · reason: ___
+Return a finished HTML page using [view.html](view.html). Use [format.md](format.md) for its embedded JSON.
+The page is the output; a text outline or JSON alone is not the deliverable.
+
+1. **Fix the input.** Preserve original item names or stable record IDs and count the set before sorting.
+2. **Name the whole.** Declare its grain and an observable done-test: every supplied item accounted for once.
+3. **Declare the first cut.** Ask one question that gives about four meaningful groups, using kind, instance or part.
+   Keep a supplied outside authority's categories and version, even when it has five or more groups.
+   Declare precedence for overlapping answers and record See links; never let input order decide membership.
+4. **Declare a leaf limit.** Use a small enough limit that substantial first-cut groups divide again.
+   For a starting value, use `min(40, max(2, ceil(item_count / 8)))`; adjust to the actual distribution.
+   Forty fits a large library; it usually leaves a small set too shallow. Twelve items might use two; fifty might use seven.
+   This is a display choice, not a law. Never invent divisions just to add depth.
+5. **Declare the later cuts in order.** Each has one question, one relation and deterministic answer criteria.
+   For example: origin period → medium → decade → visual character, when those distinctions fit the set.
+   For an outside classification, use its next rank before introducing another cut.
+6. **Split each group over the limit.** Try the next unused cut in that sequence that actually divides its membership.
+   Skip a cut if it gives fewer than two nonempty answers. Recurse on each answer until leaves fit.
+   Do not reuse a cut along one path. If the sequence runs out, add a meaningful cut or record the oversize limit openly.
+7. **Name and count every part.** Branch names are `answer · count`; leaf names are `answer · count · three names`.
+   Use up to three representative original names, chosen by a stated rule; alphabetical order is a useful default.
+   Keep complete membership in `leaf.items` and the leaf's done-test. Counts exclude See links.
+8. **Keep uncertain items visible.** Use a counted “No family found” branch and split it further where possible.
+   Truly unresolved or out-of-scope items can remain in named, counted residue with reasons.
+   Place each item once; point to a second home with See instead of copying it.
+9. **Complete the internal records.** Use format 4 and the contract, done-test and size fields the device checker reads.
+   These records stay inside the page; its editing and contract panels remain hidden.
+   A refusal returns to the existing parent, or to `none` with a reason outside the whole.
+   Give each part its own membership decision in Hides. Do not fabricate keeper agreements; accept K4 warnings if unknown.
+10. **Check the result.** Reconcile input = placed + residue; check each cell against its own target when sampling.
+    All branches must ask one question with one relation and have at least two distinct children.
+    Run the supplied `grainCheck(tree)` in an available JavaScript runtime and fix every error (`l: "e"`).
+    Keep genuine warnings; do not weaken the checker to erase them.
+    Check semantic overlap, cut usefulness and the leaf limit separately; a structural checker cannot judge them.
+11. **Return the page.** Put the finished tree JSON into the `tree-data` slot of view.html and return `tree.html`.
+    Preserve the device, badges, fail/warn count, law tips, initial first-level view and one-level-per-press disclosure.
+    Keep Copy JSON. Do not replace the device with a text tree or a newly designed viewer.
+
+With Python, place the JSON in the empty slot:
+
+```python
+from pathlib import Path
+import json
+view = Path("grain-tree/view.html").read_text()
+payload = json.dumps(tree, ensure_ascii=False).replace("<", "\\u003c")
+page = view.replace('id="tree-data">null</script>', 'id="tree-data">' + payload + '</script>', 1)
+Path("tree.html").write_text(page)
 ```
 
-**Parts** repeat at each level; a branch has children and a leaf has none.
-Use one line per node, with children indented below their parent.
-A whole can itself be a leaf. Add only the levels the set needs.
-**Leaves** show their count and up to three example names, not every field or every item.
-**Done** means every assigned item satisfies its ancestor cuts and appears once; the displayed count matches its membership.
-Add another observable leaf test only when the whole's done-test needs it.
-**Holds** is implicit: a part holds its items. Refusals go to a sibling or to the named residue.
-For a sort of a set, write no other contract lines, flows, slices or empty system fields.
+Without code execution, write out the supplied view.html with the complete JSON replacing only `null` in that slot.
+Escape `<` in JSON strings as `\u003c` so an item name cannot close the script element.
+Use the exact supplied runtime and styles. Do not claim its checker ran if execution was unavailable.
 
-**Grain** is the declared unit; leaf size is its count in grains.
-If item count differs from grain size, add the size beside the count.
-**Cells** are the leaves unless finer cells are named. A declared target applies separately to every cell.
-For counted cells, choose a target of at least two; omit the target when no cells are being sampled.
-Put each shortfall reason beside its cell. Never pool counts to conceal a shortfall.
-**See** adds a reference beside a second home, pointing to the primary placement by unique path or ID.
-A See link never adds another item. Keep full memberships available for counting and checking.
-**Residue** is named and counted even when zero; list unresolved items and reasons when it is nonempty.
+# Working systems
 
-# When the tree divides a working system
-
-Use this layer only when the purpose's parts pass things between them.
-Keep the compact tree; add system details beside the relevant part when needed.
-
-```text
-Part: ___
-  Contract: holds ___; hides ___; takes ___; gives ___
-  Refuses: ___ → ___; reason: ___
-  Keeper: ___; agreed on: ___
-Flow: ___ → ___ · signal: ___
-Slice: ___ · leaf IDs: ___
-```
-
-**Hides** names the decision made inside the boundary; siblings hide different decisions.
-**Takes** and **Gives** name signals crossing it. List each signal at both endpoints and in its flow.
-**Refusals** name an existing home, or `none` with a reason when the system has no destination.
-**Keeper** names who maintains the agreement. Never invent a person's agreement or its date.
-If either is unknown, report K4 WARN; do not repeat empty agreement lines across the tree.
-**Flows** name giver, receiver and signal; either endpoint may be `outside`.
-Name the keeper at the nearest branch shared by linked parts.
-**Slices** name the leaves that join into one thing; each gives something through a flow with a destination.
-Omit unused flows and slices. A missing required boundary or endpoint is a failure, not an empty-field placeholder.
-
-# Growing a tree
-
-1. **Name the whole.** Say what counts as done.
-2. **Declare the grain.** State the smallest unit this tree resolves, and measure every leaf in it.
-3. **Choose one cut.** Write one question and name two to four answers as children.
-   Declare its relation: **kind** (types), **instance** (members), or **part** (components).
-4. **Group wider branches.** Give a real shared name to the chunk, then cut again.
-   Preserve an authoritative classification if grouping would distort it; report C1 instead.
-5. **Stop at an elementary part.** Give each leaf a done-test and a positive whole-number size in grains.
-   A resolved group can be a leaf; its size counts all its grains. Use the shared leaf test where sufficient.
-6. **Draw each boundary.** In a set, each part holds its items; route refusals to a sibling or residue.
-   For a working system, also state hides, takes, gives, refusals, keeper and agreement date.
-7. **List each system flow at both ends.** Match its signal to the giver's Gives and receiver's Takes.
-   Compare internal and crossing links. Name the keeper at their nearest shared branch. Skip this for a set.
-8. **Set counted-cell targets.** Use a target of at least two in each cell, and explain each shortfall.
-   A target is per cell, never a total pooled across cells.
-9. **Join system leaves when needed.** Name a slice by its leaf IDs.
-   Every included leaf must give something through a flow with a destination. Skip this for a set.
-
-# Sorting a set into it
-
-1. **Fix the input.** Keep each supplied item name or ID unchanged; count the input before sorting.
-   Distinguish separate records that share a name with stable IDs.
-2. **Find the organizing question.** Prefer a supplied authority's categories and version when classification has an external standard.
-   Otherwise state the criterion that makes the split useful for this set or purpose.
-3. **Place each item once.** Follow each cut from the whole to one leaf.
-   Recut when answers overlap in meaning or mix relations.
-4. **Link second homes.** Choose one primary placement and put a See link at the other location.
-   Say what that link connects. A link contributes no extra item or grain.
-5. **Name the residue.** List and count unresolved or out-of-scope items, with reasons.
-   Keep them outside the placed tree until resolved. Do not force a guess to hide residue.
-6. **Reconcile the counts.** Placed items plus residue must equal the input, without overlap or duplication.
-   Count each branch from its descendants. Check each counted cell separately.
-7. **Return the compact tree.** Show residue and the short rule check after it.
-   For a large tree, show the whole and its first cut first; expand one named part at a time.
-   Keep all item placements available in the full membership list or an accompanying export.
-
-Plain text is sufficient; no script is needed to grow, sort or check a tree.
-Use [format.md](format.md) only when a full machine-readable export is explicitly requested.
-That detailed export schema does not determine the compact chat presentation.
-
-# Checking the tree
-
-Report only **FAIL** and **WARN** lines, each naming the affected path or ID and its reason.
-Then write one **PASS** line naming the rules that pass, and one **N/A** line naming inapplicable rules with their reasons.
-Fix failures before returning a finished tree. Keep unsupported placements in the residue.
-Apply system-only rules only when the optional system layer is in use.
-
-- **G1 · fail:** The root declares its grain.
-- **G2 · fail:** A counted leaf targets at least two per cell; every cell below target says why.
-- **G3 · warn:** Leaves have equal sizes in the declared grain; invalid or nonpositive grain counts fail.
-- **C1 · warn:** A branch has about four parts; group larger cuts without inventing a false relation.
-- **H1 · fail:** Each branch has at least two parts; every end is a leaf; stop at the elementary part.
-- **H2 · system only · warn:** Links inside a part outnumber links across it; compare where links exist.
-- **F1 · fail:** Each cut asks one question, answered consistently by its children.
-- **F2 · fail:** Each cut uses one relation: kind, instance or part.
-- **F3 · fail:** Siblings differ in meaning and name.
-- **F4 · fail/warn:** Fail broken or self See links and copied items; warn on repeated concepts needing a See link.
-- **P1 · system only · fail/warn:** Fail a missing hidden decision; warn when siblings hide the same decision.
-- **K1 · fail/warn:** Fail empty Holds or missing done-tests; warn if a done-test only repeats its name; set membership supplies Holds.
-- **K2 · system only · fail/warn:** Fail flows absent from either endpoint's contract; warn on Takes or Gives without a corresponding flow.
-- **K3 · system only · fail/warn:** Fail refusals without a home, or `none` without a reason; warn on contracts refusing nothing.
-- **K4 · system only · warn:** Every contract names its keeper and agreement date; a malformed claimed agreement fails.
-- **K5 · system only · warn:** Each link between parts has a keeper at their nearest shared branch.
-- **T1 · system only · fail:** A slice joins only leaves that give something through a flow to a destination.
-
-Also check **coverage**: every input item occurs once in either a leaf or named residue; all counts reconcile.
-For sets, check refusal routing through membership and residue accounting; do not add contract lines to prove it.
-Check meanings as well as fields. A question mark cannot establish that a cut asks only one question.
-Structural checks cannot decide whether categories overlap or whether the chosen grain is useful.
+When parts actually pass things between them, list each flow's giver, receiver and signal.
+Both contracts list that signal. Settle crossing links at their nearest shared branch's keeper.
+A slice contains only leaves whose outputs have destinations. Omit unused flows and slices, or leave their lists empty.
+These do not replace the bounded sorting procedure or change the visible tree format.
 
 # Small worked example
 
-Twelve stock types sorted by this kitchen's storage assignments. Each leaf is one counted cell.
+Twelve real acoustic instrument types, first cut by sound family and then by first subdivision where over the limit.
+The leaf limit is two. Example names follow input order; the full set is stored inside the JSON.
+This is the JSON inserted into the supplied view, not a text-output template.
 
-```text
-Kitchen stock · 12 items
-  Done when: Each supplied type appears once in its assigned storage bin; all counts match.
-  Grain: one stock type · target per cell: 2
-  Cut: Where is it stored? · relation: part
-  Cupboard · 6 · cut: Which cupboard bin? · relation: part
-    Cereals · 3 · rice; oats; barley
-    Pulses · 3 · lentils; chickpeas; kidney beans
-  Fridge · 6 · cut: Which fridge bin? · relation: part
-    Roots · 3 · carrot; beetroot; radish
-    Greens · 3 · spinach; kale; rocket
-Residue: Unplaced stock · 0 · all supplied types have a bin
-Coverage: 12 placed + 0 residue = 12 input; each cell has 3 of target 2.
-PASS: G1 G2 G3 C1 H1 F1 F2 F3 F4 K1 coverage.
-N/A: P1 H2 K2 K3 K4 K5 T1; no working-system layer.
+```json
+{
+  "grain_tree": 4,
+  "title": "Acoustic instruments",
+  "root": {
+    "id": "whole",
+    "name": "Acoustic instruments · 12",
+    "done": "All twelve supplied types are placed once under their sound family; every leaf holds at most two types.",
+    "grain": "one instrument type",
+    "cut": "Which sound family is it in?",
+    "rel": "kind",
+    "contract": {"holds": "12 supplied types in the inventory", "hides": "membership of the inventory", "takes": [], "gives": [], "refuses": [{"what": "a type outside the supplied set", "goes_to": "none", "reason": "not in this inventory"}]},
+    "children": [
+      {
+        "id": "idio",
+        "name": "Idiophones · 4",
+        "cut": "Which first subdivision applies?",
+        "rel": "kind",
+        "contract": {"holds": "4 supplied types in Idiophones", "hides": "membership of Idiophones", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "whole"}]},
+        "children": [
+          {
+            "id": "struck",
+            "name": "Struck · 2 · triangle, xylophone",
+            "contract": {"holds": "2 supplied types in Struck", "hides": "membership of Struck", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "idio"}]},
+            "leaf": {"done": "All 2 are placed here once: triangle; xylophone", "size": 2, "items": ["triangle", "xylophone"]}
+          },
+          {
+            "id": "plucked",
+            "name": "Plucked · 2 · jaw harp, musical box",
+            "contract": {"holds": "2 supplied types in Plucked", "hides": "membership of Plucked", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "idio"}]},
+            "leaf": {"done": "All 2 are placed here once: jaw harp; musical box", "size": 2, "items": ["jaw harp", "musical box"]}
+          }
+        ]
+      },
+      {
+        "id": "mem",
+        "name": "Membranophones · 4",
+        "cut": "Which first subdivision applies?",
+        "rel": "kind",
+        "contract": {"holds": "4 supplied types in Membranophones", "hides": "membership of Membranophones", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "whole"}]},
+        "children": [
+          {
+            "id": "drums",
+            "name": "Struck drums · 2 · timpani, bass drum",
+            "contract": {"holds": "2 supplied types in Struck drums", "hides": "membership of Struck drums", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "mem"}]},
+            "leaf": {"done": "All 2 are placed here once: timpani; bass drum", "size": 2, "items": ["timpani", "bass drum"]}
+          },
+          {
+            "id": "friction",
+            "name": "Friction drums · 1 · cuica",
+            "contract": {"holds": "1 supplied types in Friction drums", "hides": "membership of Friction drums", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "mem"}]},
+            "leaf": {"done": "All 1 are placed here once: cuica", "size": 1, "items": ["cuica"]}
+          },
+          {
+            "id": "singing",
+            "name": "Singing membranes · 1 · kazoo",
+            "contract": {"holds": "1 supplied types in Singing membranes", "hides": "membership of Singing membranes", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "mem"}]},
+            "leaf": {"done": "All 1 are placed here once: kazoo", "size": 1, "items": ["kazoo"]}
+          }
+        ]
+      },
+      {
+        "id": "strings",
+        "name": "Chordophones · 2 · piano, violin",
+        "contract": {"holds": "2 supplied types in Chordophones", "hides": "membership of Chordophones", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "whole"}]},
+        "leaf": {"done": "All 2 are placed here once: piano; violin", "size": 2, "items": ["piano", "violin"]}
+      },
+      {
+        "id": "air",
+        "name": "Aerophones · 2 · accordion, flute",
+        "contract": {"holds": "2 supplied types in Aerophones", "hides": "membership of Aerophones", "takes": [], "gives": [], "refuses": [{"what": "a type outside this part", "goes_to": "whole"}]},
+        "leaf": {"done": "All 2 are placed here once: accordion; flute", "size": 2, "items": ["accordion", "flute"]}
+      }
+    ]
+  },
+  "flows": [],
+  "slices": [],
+  "leaf_limit": 2,
+  "cut_sequence": [{"question": "Which first subdivision applies?", "rel": "kind"}],
+  "residue": {"name": "Unplaced types", "items": [], "n": 0, "reason": "All supplied types have a family."}
+}
 ```
 
 # Grounding

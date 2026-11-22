@@ -1,8 +1,7 @@
-# JSON export
+# Tree JSON
 
-Use only when a machine-readable tree is requested. The outline remains sufficient for ordinary use.
-
-# Sorting a set
+Use grain tree format 4 inside the supplied view.html's `tree-data` script element.
+The HTML page is the deliverable. The JSON remains available through Copy JSON.
 
 ```json
 {
@@ -14,83 +13,77 @@ Use only when a machine-readable tree is requested. The outline remains sufficie
     "done": "",
     "grain": "",
     "cut": "",
-    "rel": "part",
+    "rel": "kind",
+    "contract": {
+      "holds": "",
+      "hides": "",
+      "takes": [],
+      "gives": [],
+      "refuses": [{"what": "", "goes_to": "none", "reason": ""}]
+    },
     "children": []
   },
+  "flows": [],
+  "slices": [],
+  "leaf_limit": 2,
+  "cut_sequence": [{"question": "", "rel": "kind"}],
   "residue": {"name": "", "items": [], "n": 0, "reason": ""}
 }
 ```
 
-- **Nodes:** Each has a unique `id`, a `name`, and either `children` or item membership.
-- **Branches:** Supply `cut`, `rel` and at least two `children`; their membership comes from descendants.
-- **Leaves:** Supply `items`, an observable `done` test, and `size` in the declared grain.
-- **Root:** Also supply `grain` and the whole's `done` test, even if it is a leaf.
+- **Nodes:** Every node has unique kebab-case `id`, nonempty `name` and a `contract`.
+- **Root:** Also names the whole's `done` test and `grain`.
+- **Branches:** Add `cut`, `rel` and at least two `children`; omit `leaf`.
+- **Leaves:** Omit `children`; add a `leaf` record with `done`, `size` and complete `items`.
 
 ```json
 {
   "id": "leaf-id",
-  "name": "",
-  "items": [],
-  "done": "",
-  "size": 1
-}
-```
-
-**Holds** is supplied by membership for a set; no contract object is needed.
-An explicit `contract: {"holds": "..."}` is also accepted on any node.
-Every part must hold something, and every end must have a done-test (K1).
-Do not add hides, takes, gives, refuses or agreement fields to a set export.
-Set refusals route to another part or the named residue through membership accounting.
-
-**Compatibility:** A leaf may instead wrap `items`, `done`, `size` and optional `count` inside `leaf`.
-Use either direct fields or the wrapper, not both; this preserves earlier exports.
-**Items** contain original item names or stable record IDs, each at one leaf only.
-**Size** counts the declared grains; it need not equal the item count if the grain differs.
-**Count** is optional on a leaf, beside its items:
-
-```json
-{
-  "count": {
-    "target": 2,
-    "cells": [{"cell": "", "n": 0, "why": ""}]
-  }
-}
-```
-
-Each named cell has its own observed count and shortfall reason.
-**See** optionally lists existing node IDs for alternate homes; explain the link's meaning when needed.
-**Residue** lists items held out of the placed tree; its `n` equals the list length.
-Empty lists stay empty. Do not fill them with the string `none`.
-
-# When the tree divides a working system
-
-Add this layer only when parts pass things between them.
-Each node then has a contract with Holds, Hides, Takes, Gives and Refuses:
-
-```json
-{
+  "name": "answer · 2 · first name, second name",
   "contract": {
-    "holds": "",
-    "hides": "",
+    "holds": "the two items answering this cut",
+    "hides": "membership of this answer",
     "takes": [],
     "gives": [],
-    "refuses": [],
-    "agreed": {"by": "", "on": ""}
+    "refuses": [{"what": "an item answering differently", "goes_to": "parent-id"}]
+  },
+  "leaf": {
+    "done": "All 2 are placed here once: first name; second name",
+    "size": 2,
+    "items": ["first name", "second name"]
   }
 }
 ```
 
-**Refusals** use `{"what": "", "goes_to": "node-id", "reason": ""}`.
-For `goes_to: "none"`, provide a reason. Otherwise the home must exist and differ from the refusing node.
-**Agreement** names the keeper in `by` and the agreement date in `on`.
-Omit it if unknown and report K4 WARN; never fabricate agreement.
-**Flows** appear at tree level as `{"from": "node-id", "to": "outside", "signal": ""}` records in `flows`.
-Either endpoint can be `outside`; internal endpoints must exist and list the signal in their contracts.
-**Slices** appear at tree level as `{"id": "slice-id", "name": "", "leaves": ["leaf-id"]}` records in `slices`.
-Each selected leaf must give something through a flow with a destination.
+**Names:** Branches use `answer · count`; leaves append up to three representative names.
+Every count comes from complete membership, never the number of visible examples.
+**Cuts:** `cut` is one question ending in `?`; `rel` is exactly `kind`, `instance` or `part`.
+**Contracts:** Supply Holds, Hides, Takes, Gives and Refuses at every node for the supplied device checker.
+These are internal data; the page hides its contract and editing panels.
+**Holds:** State the membership boundary. **Hides:** Name the membership decision specific to that node.
+**Refusals:** Route to an existing different node, usually the parent, or to `none` with a reason.
+**Keeper:** Optional `contract.agreed: {"by": "", "on": ""}` names the keeper and actual agreement date.
+Omit unknown agreements and keep the K4 warning. Never invent agreement to make a badge disappear.
+**Size:** A positive whole-number measurement in the root's grain; keep displayed membership count separate from terminal size.
+The checker warns G3 when sizes differ. The source device can show equally sized terminal groups with different membership counts.
+For a grain of one input item, size equals membership count; do not report one for a group of several items.
+**Items:** Preserve every original name or record ID once, across leaves and residue.
+The device uses the name and done-test; `leaf.items` adds explicit membership for exact scoring.
+**Count:** Optional `leaf.count` contains `target` (at least two) and `cells`.
+Each cell is `{"cell": "", "n": 0, "why": ""}`; any cell below target needs its own reason.
+**See:** Optional node-level `see` lists existing IDs for second homes; it never duplicates membership.
+**Flows:** Tree-level `flows` records use `{"from": "node-id", "to": "outside", "signal": ""}`.
+Either endpoint may be `outside`; both internal endpoints list the signal in Gives or Takes respectively.
+**Slices:** Tree-level `slices` records use `{"id": "slice-id", "name": "", "leaves": ["leaf-id"]}`.
+Every included leaf gives something through a flow with a destination.
+**Limits:** `leaf_limit` and ordered `cut_sequence` record the sorting choices; the runtime does not invent or apply cuts.
+**Residue:** Named, counted unresolved items stay separate; a “No family found” branch can instead hold and subdivide them.
+The checker reads neither this bookkeeping nor membership lists; reconcile them independently.
 
-**Scope:** A nonempty flow or slice list activates system checks for the whole tree.
-Any contract field beyond Holds also activates them, even if empty or on a descendant.
-Absent or empty flow and slice lists alone do not activate them.
-Without a system layer, H2, P1, K2–K5 and T1 are N/A because this is a set tree.
-K1 checks Holds or membership and done-tests; takes, gives and refuses belong to the system checks.
+# Page slot
+
+Replace only `null` in `<script type="application/json" id="tree-data">null</script>` with the complete tree object.
+Escape `<` as `\u003c` inside that JSON. Preserve the rest of view.html.
+The page loads its root and first level, unfolds one level per press, shows the embedded checker and supports Copy JSON.
+All checker errors must be fixed before delivery; warnings remain visible.
+Older JSON-only set exports remain readable by the scorer, but are not the page format the device requires.

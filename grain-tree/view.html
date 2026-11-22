@@ -1,0 +1,310 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Grain tree</title>
+<style>
+:root{--bg:#101215;--fg:#e9e6df;--dim:#9b978e;--line:#2b2f35;--acc:#e0a050;--card:#171a1e;--gap:#c98a8a;--ok:#7fb88a}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f3ea;--fg:#25221c;--dim:#6f685b;--line:#d8d0bd;--acc:#a8641a;--card:#fffdf7;--gap:#a04646;--ok:#2f7a45}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,system-ui,sans-serif;padding:20px 16px 56px}
+main{max-width:1040px;margin:0 auto}h1{font-size:22px;margin:0 8px 0 0;display:inline-block}.dim{color:var(--dim)}.mono{font:12px ui-monospace,Menlo,monospace}
+.chip{display:inline-block;font:12px ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:999px;padding:1px 10px;color:var(--acc);margin-right:8px}
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0 14px}
+button{font:13px ui-monospace,Menlo,monospace;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:8px;min-height:28px;min-width:28px;padding:3px 12px;cursor:pointer}
+button:hover,button:focus-visible{border-color:var(--acc);outline:none}button.on{border-color:var(--acc);color:var(--acc)}
+input,select{font:14px -apple-system,system-ui,sans-serif;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:8px;min-height:30px;padding:3px 9px}input:focus,select:focus{border-color:var(--acc);outline:none}
+#step{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 10px;min-height:92px}
+#step .top{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:6px}#step .q{font-size:17px;margin:2px 0 8px}
+#step .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}#step input[type=text]{flex:1 1 220px;min-width:0}
+.dots{display:flex;flex-wrap:wrap;gap:4px}.dots button{padding:1px 8px;font-size:12px}.dots button.done{color:var(--ok);border-color:var(--ok)}.dots button.cur{border-color:var(--acc);color:var(--acc)}
+.items{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 0}.items span{font:12px ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:999px;padding:1px 8px}
+#tw{position:relative;overflow-x:auto}#lines{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
+.tree{margin:0;padding:0;list-style:none}.tree ul{list-style:none;margin:2px 0 6px 14px;padding:0 0 0 12px;border-left:1px solid var(--line)}
+.tree li{margin:3px 0}.tree .g{font:12px ui-monospace,Menlo,monospace;color:var(--dim);margin-right:8px}.tree .q{color:var(--dim);font-size:13px;margin-left:6px}
+.nm{cursor:pointer;border-radius:4px;padding:0 3px}.nm:hover{background:var(--card)}.sel{outline:2px solid var(--acc);outline-offset:1px}
+.leaf{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin:2px 4px 2px 0;font-size:13px;color:inherit;background:var(--card);font-family:inherit;min-height:26px}
+.bd{font:11px ui-monospace,Menlo,monospace;border-radius:4px;padding:0 5px;margin-left:5px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.bd.e{border-color:var(--gap);color:var(--gap)}.bd.w{border-color:var(--acc);color:var(--acc)}.bd.m{color:var(--ok);border-color:var(--ok)}
+.sum{font:12px ui-monospace,Menlo,monospace;color:var(--dim);margin-left:auto}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+#tip{position:fixed;z-index:20;max-width:300px;background:var(--card);border:1px solid var(--acc);border-radius:10px;padding:8px 12px;font-size:13px;line-height:1.4;pointer-events:none;box-shadow:0 4px 18px rgba(0,0,0,.28)}#tip b{color:var(--acc)}#tip .ct{display:block;margin-top:2px}
+.ct{color:var(--dim);font-size:13px}
+.nm.sl{color:var(--dim);font-weight:400;border:1px dashed var(--line);border-radius:6px;padding:0 9px}.leaf.sl{border-style:dashed;color:var(--dim);background:transparent}.slr{font-size:13px}
+.bar button,#step,#ct{display:none}.bar #copy{display:inline-block}[data-children][hidden]{display:none!important}</style></head><body><main>
+<div class="bar"><h1>Grain tree</h1>
+<button id="copy">Copy JSON</button><button id="hlb" hidden></button><button id="hlc" hidden aria-label="Clear">&#10005;</button><span class="sum" id="sum"></span></div>
+<div id="step"></div>
+<div id="ct"></div>
+<div id="tw"><svg id="lines" width="10" height="10"></svg><ul class="tree" id="tree"></ul></div>
+<div id="tip" hidden></div>
+<div id="refslot"></div>
+<template id="reft"></template>
+</main>
+<script type="application/json" id="tree-data">null</script>
+<script type="application/json" id="tipdata">{"parts":{"whole":["Whole","Searle 2010","Something counts as done only by a stated test. The whole names its done-test.","K1"],"grain":["Grain","Shannon 1948","A signal is fixed by samples at a stated interval. The grain is that interval, declared once.","G1"],"branch":["Branch","Simon 1962","Hierarchy runs on until the lowest elementary subsystem. A branch divides into parts.","H1"],"cut":["Cut","NISO Z39.19","Sibling terms are labelled by their principle of division: one question per cut.","F1"],"relation":["Relation","NISO Z39.19","A cut is one of three mutually exclusive relations: kind, instance, part.","F2"],"leaf":["Leaf","Simon 1962","The lowest elementary subsystem. It carries a done-test.","H1"],"size":["Size","West 1997","Terminal units do not vary: every leaf is one size, counted in grains.","G3"],"count":["Count","Shannon 1948","At least two samples per feature, or the feature cannot be fixed.","G2"],"see":["See link","NISO Z39.19","A thing that belongs under two parts is recorded under both, never copied.","F4"],"flow":["Flow","Lewis 1969","A convention holds when everyone expects everyone to conform: both ends list the signal.","K2"],"slice":["Slice","Truax 1988","Enveloped grains join in any order. A leaf with no envelope cannot join.","T1"],"contract":["Contract","Searle 2010","X counts as Y in C: a part is what its contract says it holds.","K1"],"holds":["Holds","Searle 2010","X counts as Y in C: what counts as this part.","K1"],"hides":["Hides","Parnas 1972","Each module is characterized by a design decision it hides from all others.","P1"],"takes":["Takes","Lewis 1969","What this part expects in. The giver knows it too.","K2"],"gives":["Gives","Lewis 1969","What this part sends out. The taker knows it too.","K2"],"refuses":["Refuses","Ostrom 2010","Clear boundaries between users and non-users: what is outside, and where it goes.","K3"],"keeper":["Keeper","Ostrom 2010","Those affected may change the rules: the keeper agreed it, and when.","K4"]},"rules":{"G1":["Shannon 1948","The root declares its grain."],"G2":["Shannon 1948","A counted leaf has a target of 2 or more per cell. A cell under target says why."],"G3":["West, Brown, Enquist 1997","Leaves are one size, counted in grains."],"C1":["Cowan 2001","About four parts to a branch. More are grouped into a named chunk."],"H1":["Simon 1962","Divide until the elementary part. A branch has two parts or more. Every end is a leaf."],"H2":["Simon 1962","Links inside a part outnumber links across it."],"F1":["NISO Z39.19","One question per cut."],"F2":["NISO Z39.19","One relation per cut: kind, instance or part."],"F3":["NISO Z39.19","Siblings are distinct. No two share a name."],"F4":["NISO Z39.19","A thing under two parts is recorded with a see link, not copied."],"P1":["Parnas 1972","Every part names the decision it hides. Siblings hide different ones."],"K1":["Searle 2010","Every part holds something. Every end has a done-test."],"K2":["Lewis 1969","Every signal is listed at both ends: given and taken."],"K3":["Ostrom 2010","Every refusal has a home, or none with a reason."],"K4":["Ostrom 2010","Every contract names its keeper and the date agreed."],"K5":["Ostrom 2010","Links between parts are settled in the nearest branch they share. It names a keeper."],"T1":["Truax 1988","A slice joins only leaves that give something, and what they give goes somewhere."]}}</script>
+<script>
+// grainCheck(tree) -> [{l:'e'|'w', c:code, id:nodeId|null, m:message}]. One source: the page and grain-check.mjs both run this text.
+// Each code is a rule taken from an outside law (see construct.py). Slot nodes (an unfilled template) are skipped.
+function shapeErrors(t) {
+  const e = [], O = (x) => x && typeof x === 'object' && !Array.isArray(x);
+  if (!O(t) || !O(t.root)) return ['the tree needs a root object'];
+  (function w(n, p) {
+    if (!O(n)) { e.push(p + ' is not an object'); return; }
+    if (n.name !== undefined && typeof n.name !== 'string') e.push(p + ': name is not text');
+    if (n.children !== undefined && !Array.isArray(n.children)) { e.push(p + ': children is not a list'); return; }
+    if (n.see !== undefined && !Array.isArray(n.see)) e.push(p + ': see is not a list');
+    if (n.contract !== undefined) { if (!O(n.contract)) e.push(p + ': contract is not an object'); else if (Array.isArray(n.contract.refuses) && n.contract.refuses.some((r) => !O(r))) e.push(p + ': a refusal is not an object'); }
+    if (n.leaf !== undefined) { if (!O(n.leaf)) e.push(p + ': leaf is not an object'); else if (n.leaf.count !== undefined && (!O(n.leaf.count) || (n.leaf.count.cells !== undefined && !Array.isArray(n.leaf.count.cells)))) e.push(p + ': count is malformed'); }
+    (n.children || []).forEach((c, i) => w(c, p + '/' + i));
+  })(t.root, 'root');
+  if (t.flows !== undefined && (!Array.isArray(t.flows) || t.flows.some((f) => !O(f)))) e.push('flows is not a list of objects');
+  if (t.slices !== undefined && (!Array.isArray(t.slices) || t.slices.some((x) => !O(x) || (x.leaves !== undefined && !Array.isArray(x.leaves))))) e.push('slices is not a list of objects with a leaves list');
+  return e;
+}
+function grainCheck(t) {
+  const se = shapeErrors(t); if (se.length) return se.map((m) => ({ l: 'e', c: 'fmt', id: null, m }));
+  const out = [], E = (c, id, m) => out.push({ l: 'e', c, id, m }), W = (c, id, m) => out.push({ l: 'w', c, id, m });
+  const ID = /^[a-z0-9]+(-[a-z0-9]+)*$/, REL = ['kind', 'instance', 'part'], R = t.root;
+  if (!R) { E('K1', null, 'no root'); return out; }
+  if (t.grain_tree !== 4) E('fmt', null, 'grain_tree must be 4');
+  const ids = new Map(), kidsOf = (n) => (n.children || []).filter((c) => !c.slot);
+  const pending = (n) => !!n.slot || ((n.children || []).length > 0 && (n.children || []).every((c) => c.slot) && !n.leaf);
+  const all = [], branches = [], leaves = [];
+  (function walk(n, d, p) {
+    if (n.slot) return;
+    if (!n.id || !ID.test(n.id)) E('fmt', n.id || null, 'bad id "' + n.id + '"'); else if (ids.has(n.id)) E('fmt', n.id, 'duplicate id ' + n.id); else ids.set(n.id, { n, d, p });
+    if (!n.name) E('fmt', n.id, 'no name');
+    if (!pending(n)) all.push(n);
+    kidsOf(n).forEach((k) => walk(k, d + 1, n.id));
+  })(R, 0, null);
+  const anc = (id) => { const a = []; let c = id; while (c) { a.push(c); c = ids.get(c) && ids.get(c).p; } return a; };
+  const keeper = (n) => (n.contract && n.contract.agreed && n.contract.agreed.by) || '';
+
+  // G1 Shannon 1948: the unit is stated, or the measure is undefined
+  if (!R.slot) { if (!R.grain || !String(R.grain).trim()) E('G1', R.id, 'root declares no grain: a measure with no stated unit is undefined'); if (!R.done || !R.done.trim()) E('K1', R.id, 'root has no done-test: nothing counts as done'); }
+
+  all.forEach((n) => {
+    const kids = kidsOf(n), isB = kids.length > 0;
+    if (isB) {
+      branches.push(n);
+      if (n.leaf) E('H1', n.id, 'a node is a branch or a leaf, not both');
+      if (!n.cut || !/\?\s*$/.test(n.cut)) E('F1', n.id, 'a cut is one question: its principle of division');
+      if (!REL.includes(n.rel)) E('F2', n.id, n.rel ? 'relation "' + n.rel + '" is not kind, instance or part' : 'the cut names no relation: kind, instance or part');
+      if (kids.length < 2) E('H1', n.id, 'one part is not a division');
+      if (kids.length > 4) W('C1', n.id, kids.length + ' parts: about four fit in view at once; group them');
+      const seen = new Set(); kids.forEach((k) => { const key = (k.name || '').toLowerCase(); if (seen.has(key)) E('F3', n.id, 'two parts named "' + k.name + '"'); seen.add(key); });
+      const sh = new Map(); kids.forEach((k) => { const h = ((k.contract && k.contract.hides) || '').trim().toLowerCase(); if (h) { if (sh.has(h)) W('P1', n.id, 'parts ' + sh.get(h) + ' and ' + k.id + ' hide the same decision: one change would touch both'); sh.set(h, k.id); } });
+    } else {
+      leaves.push(n);
+      if (!n.leaf) E('H1', n.id, 'an end with no done-test: split it or finish it');
+      else {
+        const L = n.leaf;
+        if (!L.done || !L.done.trim()) E('K1', n.id, 'a leaf needs a done-test: what counts as done, and where');
+        else if (L.done.trim().toLowerCase() === (n.name || '').trim().toLowerCase()) W('K1', n.id, 'the done-test repeats the name');
+        if (!Number.isInteger(L.size) || L.size < 1) E('G3', n.id, 'size is a whole number of grains');
+        if (L.count) {
+          const C = L.count;
+          if (!Number.isInteger(C.target) || C.target < 2) E('G2', n.id, 'target ' + C.target + ' is under 2 samples per feature: it cannot be fixed');
+          (C.cells || []).forEach((c) => { if (c.n < C.target && !(c.why && String(c.why).trim())) E('G2', n.id, 'cell "' + c.cell + '" has ' + c.n + ' of ' + C.target + ' and no reason'); if (c.n >= C.target && c.why) W('G2', n.id, 'cell "' + c.cell + '" gives a reason but meets its target'); });
+        }
+      }
+    }
+    // facet, polyhierarchy: a second place is recorded, never copied
+    (n.see || []).forEach((s) => { if (!ids.has(s)) E('F4', n.id, 'see ' + s + ' does not exist'); else if (s === n.id) E('F4', n.id, 'see points to itself'); });
+    // contract
+    const k = n.contract;
+    if (!k || typeof k !== 'object') { E('K1', n.id, 'no contract'); return; }
+    if (!k.holds || !String(k.holds).trim()) E('K1', n.id, 'contract holds nothing: what counts as this part');
+    if (!k.hides || !String(k.hides).trim()) E('P1', n.id, 'contract hides nothing: name the decision kept inside');
+    if (!Array.isArray(k.takes) || !Array.isArray(k.gives) || !Array.isArray(k.refuses)) { E('K1', n.id, 'takes, gives and refuses must be lists'); return; }
+    k.refuses.forEach((r) => {
+      if (!r.what) E('K3', n.id, 'a refusal names no thing');
+      else if (!r.goes_to) E('K3', n.id, 'refusal "' + r.what + '" has no home' + (keeper(n) ? ' (keeper: ' + keeper(n) + ')' : ''));
+      else if (r.goes_to === 'none') { if (!r.reason) E('K3', n.id, 'refusal "' + r.what + '" goes to none with no reason'); }
+      else if (!ids.has(r.goes_to)) E('K3', n.id, 'refusal "' + r.what + '" goes to unknown ' + r.goes_to);
+      else if (r.goes_to === n.id) E('K3', n.id, 'refusal "' + r.what + '" goes to itself');
+    });
+    if (k.agreed && (!k.agreed.by || !k.agreed.on)) E('K4', n.id, 'agreed needs by and on');
+  });
+  // names under two parents: polyhierarchy has to be recorded
+  { const nm = new Map(); all.forEach((n) => { const key = (n.name || '').toLowerCase(); if (!nm.has(key)) nm.set(key, []); nm.get(key).push(n); });
+    nm.forEach((v, key) => { if (v.length > 1 && !v.some((n) => (n.see || []).length)) v.forEach((n) => W('F4', n.id, 'the name is under ' + v.length + ' parents: add see or merge')); }); }
+  // K4 Ostrom 3: those affected keep the rule; K1 none contract at all is already an error
+  { const nk = all.filter((n) => n.contract && !(n.contract.agreed && n.contract.agreed.by)); if (nk.length) W('K4', R.id, nk.length + ' of ' + all.length + ' contracts name no keeper (who agreed it, and when)'); }
+  { const nr = all.filter((n) => n.contract && Array.isArray(n.contract.refuses) && !n.contract.refuses.length); if (nr.length) W('K3', R.id, nr.length + ' of ' + all.length + ' parts refuse nothing, so their boundary is not drawn'); }
+  // G3 Mandelbrot 1967, West 1997: terminal units do not vary
+  { const sz = {}; leaves.forEach((n) => { if (n.leaf && n.leaf.size) sz[n.leaf.size] = (sz[n.leaf.size] || 0) + 1; }); const ks = Object.keys(sz); if (ks.length > 1) W('G3', R.id, 'leaf sizes differ (' + ks.map((s) => s + ' grain' + (s > 1 ? 's' : '') + ': ' + sz[s]).join(', ') + '): terminal units should not vary'); }
+  // flows, K2 Lewis 1969: both ends know the convention
+  const given = new Set(), taken = new Set(), fl = [];
+  (t.flows || []).forEach((f) => {
+    const a = f.from, b = f.to, label = a + ' to ' + b + ': ' + f.signal;
+    if (a !== 'outside' && !ids.has(a)) { E('K2', null, 'flow ' + label + ': giver does not exist'); return; }
+    if (b !== 'outside' && !ids.has(b)) { E('K2', null, 'flow ' + label + ': receiver does not exist'); return; }
+    if (a === b && a !== 'outside') { E('K2', a, 'a flow from a part to itself'); return; }
+    if (!f.signal) { E('K2', a !== 'outside' ? a : b, 'a flow names no signal'); return; }
+    if (a !== 'outside') { given.add(a + '|' + f.signal); if (!((ids.get(a).n.contract || {}).gives || []).includes(f.signal)) E('K2', a, 'does not give "' + f.signal + '" to ' + b + (keeper(ids.get(a).n) ? ' (keeper: ' + keeper(ids.get(a).n) + ')' : '')); }
+    if (b !== 'outside') { taken.add(b + '|' + f.signal); if (!((ids.get(b).n.contract || {}).takes || []).includes(f.signal)) E('K2', b, '"' + f.signal + '" from ' + a + ': no receiving contract' + (keeper(ids.get(b).n) ? ' (keeper: ' + keeper(ids.get(b).n) + ')' : '')); }
+    if (a !== 'outside' && b !== 'outside') fl.push(f);
+  });
+  all.forEach((n) => { const c = n.contract; if (!c || !Array.isArray(c.gives)) return;
+    c.gives.forEach((g) => { if (!given.has(n.id + '|' + g)) W('K2', n.id, 'gives "' + g + '" and no flow carries it'); });
+    (c.takes || []).forEach((g) => { if (!taken.has(n.id + '|' + g)) W('K2', n.id, 'takes "' + g + '" and no flow brings it'); }); });
+  // H2 Simon 1962: near-decomposability, links inside a part outnumber links across it
+  { const sub = (n) => { const s = new Set(); (function w(x) { s.add(x.id); kidsOf(x).forEach(w); })(n); return s; };
+    branches.filter((b) => b.id !== R.id).forEach((b) => { const s = sub(b); let wi = 0, cr = 0; fl.forEach((f) => { const a = s.has(f.from), z = s.has(f.to); if (a && z) wi++; else if (a || z) cr++; });
+      if (wi + cr >= 3 && cr > wi) W('H2', b.id, cr + ' of ' + (wi + cr) + ' links cross its boundary: links inside a part should outnumber links between parts; recut'); }); }
+  // K5 Ostrom 2010 (6): a conflict between two parts is settled in a local arena, the nearest branch they share
+  { const arena = new Map(); fl.forEach((f) => { const A = anc(f.from), B = anc(f.to), l = A.find((x) => B.includes(x)); if (!l || l === f.from || l === f.to) return; if (!keeper(ids.get(l).n)) arena.set(l, (arena.get(l) || 0) + 1); });
+    arena.forEach((cnt, l) => W('K5', l, cnt + ' link' + (cnt > 1 ? 's' : '') + ' between its parts and it names no keeper: nobody settles a dispute here')); }
+  // T1 Truax: an enveloped grain joins others freely; a leaf with no envelope cannot
+  (t.slices || []).forEach((s) => {
+    if (!s.leaves || !s.leaves.length) E('T1', null, 'slice ' + s.id + ': no leaves');
+    (s.leaves || []).forEach((l) => { const x = ids.get(l); if (!x || !(x.n.leaf)) { E('T1', x ? l : null, 'slice ' + s.id + ': ' + l + ' is not a leaf of the tree'); return; }
+      const g = (x.n.contract || {}).gives || []; if (!g.length) E('T1', l, 'in slice ' + s.id + ' it gives nothing, so it cannot join the others'); else if (!g.some((sig) => given.has(l + '|' + sig))) E('T1', l, 'in slice ' + s.id + ': what it gives goes nowhere'); });
+  });
+  return out;
+}
+
+const INITIAL_TREE=JSON.parse(document.getElementById('tree-data').textContent),TD=JSON.parse(document.getElementById('tipdata').textContent),$=s=>document.querySelector(s);
+let T=null,sel=null,cur=0,ISS={},IDX=new Map();
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function index(){IDX=new Map();(function w(n,d,p){IDX.set(n.id,{n,d,p});(n.children||[]).forEach(c=>w(c,d+1,n.id))})(T.root,0,null)}
+function slug(s){let b=String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'node',id=b,i=2;while(IDX.has(id))id=b+'-'+i++;return id}
+const anc=id=>{const a=[];let c=id;while(c){a.push(c);c=IDX.get(c)&&IDX.get(c).p}return a};
+// ---------- the checker is check-core.js, grouped by node
+function check(){ISS={};grainCheck(T).forEach(x=>{const id=x.id&&IDX.has(x.id)?x.id:T.root.id;(ISS[id]=ISS[id]||[]).push({l:x.l,c:x.c,m:x.m})})}
+// ---------- the tree
+function flowCount(id){let o=0,i=0;(T.flows||[]).forEach(f=>{if(f.from===id)o++;if(f.to===id)i++});return[o,i]}
+const SLB={root:'Whole',part:'Part',leaf:'Leaf'},nm=n=>n.slot?'<span class="slr">'+SLB[n.slot]+'</span>':esc(n.name||'(unnamed)');
+const inSlice=id=>(T.slices||[]).filter(s=>(s.leaves||[]).includes(id)).map(s=>s.id);
+function badges(n){const is=ISS[n.id]||[],g={};is.forEach(x=>{const k=x.l+x.c;(g[k]=g[k]||{l:x.l,c:x.c,m:[]}).m.push(x.m)});
+  let h=Object.values(g).slice(0,3).map(x=>`<span class="bd ${x.l}" data-rule="${x.c}" data-msg="${esc(x.m.join('; '))}">${x.l==='e'?'✕':'!'} ${x.c}${x.m.length>1?' ×'+x.m.length:''}</span>`).join('');
+  if(Object.keys(g).length>3)h+=`<span class="bd w" data-msg="${esc(is.map(x=>x.c+' '+x.m).join('; '))}">+${Object.keys(g).length-3}</span>`;
+  const [o,i]=flowCount(n.id);if(o||i)h+=`<span class="bd m" data-part="flow" data-msg="${o} given, ${i} taken">${o?'→'+o:''}${o&&i?' ':''}${i?'←'+i:''}</span>`;
+  if(n.see&&n.see.length)h+=`<span class="bd" data-part="see" data-msg="also under ${esc(n.see.join(', '))}">↗ ${n.see.length}</span>`;return h}
+function pill(n){if(n.slot)return `<button class="leaf sl${sel===n.id?' sel':''}" data-id="${esc(n.id)}" data-part="leaf">${nm(n)}</button>`;
+  const L=n.leaf||{},sl=inSlice(n.id),cnt=L.count?`<span class="bd" data-part="count" data-msg="${(L.count.cells||[]).length} cells">≥${L.count.target}</span>`:'';
+  return `<button class="leaf${sel===n.id?' sel':''}" data-id="${esc(n.id)}" data-part="leaf" data-msg="${esc(L.done||'')}">${esc(n.name||'(unnamed)')}<span class="bd" data-part="size">×${L.size||1}</span>${cnt}${sl.length?`<span class="bd" data-part="slice" data-msg="${esc(sl.join(', '))}">◆</span>`:''}${badges(n)}</button>`}
+function head(n,d){const root=d===0,rel=n.rel?`<span class="rl" data-part="relation">${esc(n.rel)}</span>`:'',gr=root&&n.grain?`<span class="gr" data-part="grain" data-msg="${esc(n.grain)}">${esc(String(n.grain).slice(0,34))}${String(n.grain).length>34?'…':''}</span>`:'';
+  return `<span class="g">G${d}</span><b class="nm${n.slot?' sl':''}${sel===n.id?' sel':''}" data-id="${esc(n.id)}" data-part="${root?'whole':'branch'}" tabindex="0" role="button" aria-expanded="${n.children?TREE_OPEN.has(n.id):false}">${nm(n)}</b>${gr}${rel}${n.cut?`<span class="q" data-part="cut">${esc(n.cut)}</span>`:''}${badges(n)}`}
+let TREE_OPEN=new Set();
+function node(n,d){const kids=n.children||[],br=kids.filter(c=>c.children),lv=kids.filter(c=>!c.children);
+  return `<li>${head(n,d)}<ul data-children${TREE_OPEN.has(n.id)?'':' hidden'}>${br.map(c=>node(c,d+1)).join('')}${lv.length?'<li>'+lv.map(pill).join('')+'</li>':''}</ul></li>`}
+function renderTree(){document.title=T.title||'Grain tree';$('h1').textContent=T.title||'Grain tree';const r=T.root;$('#tree').innerHTML=r.children?'<li>'+head(r,0)+'<ul>'+r.children.filter(c=>c.children).map(c=>node(c,1)).join('')+(r.children.some(c=>!c.children)?'<li>'+r.children.filter(c=>!c.children).map(pill).join('')+'</li>':'')+'</ul></li>':'<li>'+head(r,0)+'</li>';
+  let e=0,w=0;Object.values(ISS).forEach(a=>a.forEach(x=>x.l==='e'?e++:w++));$('#sum').textContent=e+' fail · '+w+' warn';applyHL();refreshRef();renderCt();drawLines()}
+// ---------- the contract of the node in focus, one cell per field
+function renderCt(){const n=sel&&IDX.has(sel)?IDX.get(sel).n:null,c=(n&&!n.slot&&n.contract)||{},J=x=>x&&x.length?x.join(', '):'',
+  ref=c.refuses&&c.refuses.length?c.refuses.map(r=>r.what+' \u2192 '+r.goes_to).join('; '):'',keep=c.agreed&&c.agreed.by?c.agreed.by+' \u00b7 '+c.agreed.on:'',
+  V=(x,m,xx,y,a)=>`<text class="v${x?'':' dm'}" x="${xx}" y="${y}" text-anchor="${a}">${x?esc(String(x).length>m?String(x).slice(0,m-1)+'\u2026':x):'\u2013'}</text>`;
+  $('#ct').innerHTML=`<svg class="dg" viewBox="0 0 620 114" role="img" aria-label="contract"><defs><marker id="cm" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L8 4L0 8z" fill="context-stroke"/></marker></defs>
+<g data-part="takes"><line class="a" x1="6" y1="52" x2="168" y2="52" marker-end="url(#cm)"/><text class="at" x="87" y="40" text-anchor="middle">takes</text>${V(J(c.takes),28,87,68,'middle')}</g>
+<rect class="b" x="170" y="16" width="280" height="72" rx="6"/>
+<g data-part="holds"><text class="at" x="182" y="34">holds</text>${V(c.holds,40,218,34,'start')}</g>
+<g data-part="hides"><rect class="b d ac" x="182" y="48" width="256" height="30" rx="4"/><text class="at" x="190" y="66">hides</text>${V(c.hides,38,226,66,'start')}</g>
+<g data-part="gives"><line class="a" x1="452" y1="52" x2="614" y2="52" marker-end="url(#cm)"/><text class="at" x="533" y="40" text-anchor="middle">gives</text>${V(J(c.gives),28,533,68,'middle')}</g>
+<g data-part="refuses"><line class="a d" x1="400" y1="88" x2="400" y2="106" marker-end="url(#cm)"/><text class="at" x="410" y="104">refuses</text>${V(ref,52,454,104,'start')}</g>
+<g data-part="keeper"><rect class="b ac" x="290" y="6" width="160" height="16" rx="8"/><text class="at" x="300" y="17">keeper</text>${V(keep,22,346,17,'start')}</g></svg>`}
+// ---------- the lines between nodes: what passes, for the node in focus
+function drawLines(){const s=$('#lines'),tw=$('#tw');s.innerHTML='';const W=tw.scrollWidth,H=tw.scrollHeight;s.setAttribute('width',W);s.setAttribute('height',H);if(!sel)return;
+  const fl=(T.flows||[]).filter(f=>f.from===sel||f.to===sel);if(!fl.length)return;const tr=tw.getBoundingClientRect(),pos=id=>{const el=tw.querySelector('[data-id="'+CSS.escape(id)+'"]');if(!el)return null;const b=el.getBoundingClientRect();return{y:b.top-tr.top+tw.scrollTop+b.height/2,x:b.right-tr.left}};
+  let h='<defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--acc)"/></marker></defs>';
+  const lane={};fl.forEach(f=>{if(f.from==='outside'||f.to==='outside')return;const a=pos(f.from),b=pos(f.to);if(!a||!b)return;const k=f.signal;lane[k]=lane[k]??Object.keys(lane).length;const gx=Math.min(W-30,Math.max(a.x,b.x)+30+lane[k]*14);
+    h+=`<path d="M${a.x+4} ${a.y} C${gx} ${a.y} ${gx} ${b.y} ${b.x+6} ${b.y}" fill="none" stroke="var(--acc)" stroke-width="1.3" opacity=".75" marker-end="url(#ah)"><title>${esc(f.from+' → '+f.to+': '+f.signal)}</title></path>`});
+  Object.keys(lane).forEach(k=>{const f=fl.find(x=>x.signal===k),a=pos(f.from);if(a)h+=`<text x="${Math.min(W-6,a.x+34+lane[k]*14)}" y="${a.y-4}" fill="var(--acc)" font-size="11" font-family="ui-monospace,Menlo,monospace" text-anchor="end">${esc(k)}</text>`});s.innerHTML=h}
+// ---------- the law, on hover: each part of the tree shows where it came from
+const tip=$('#tip');
+function showTip(el){const r=el.closest('[data-rule]');let h='';
+  if(r){const x=TD.rules[r.dataset.rule];h=`<b>${r.dataset.rule}</b> · ${esc(x[0])}<span class="ct">${esc(x[1])}</span><span class="ct">${esc(r.dataset.msg||'')}</span>`}
+  else{const p=el.closest('[data-part]');if(!p)return hideTip();const x=TD.parts[p.dataset.part];if(!x)return hideTip();h=`<b>${esc(x[0])}</b> · ${esc(x[1])}<span class="ct">${esc(x[2])}</span><span class="ct">rule ${x[3]}</span>`;const m=p.dataset.msg;if(m&&p.dataset.part!=='leaf')h+=`<span class="ct">${esc(m)}</span>`}
+  tip.innerHTML=h;tip.hidden=false;const b=(r||el.closest('[data-part]')).getBoundingClientRect(),w=tip.offsetWidth,x=Math.max(8,Math.min(innerWidth-w-8,b.left)),y=b.bottom+8+tip.offsetHeight>innerHeight?b.top-tip.offsetHeight-8:b.bottom+8;tip.style.left=x+'px';tip.style.top=Math.max(8,y)+'px'}
+function hideTip(){tip.hidden=true}
+document.addEventListener('mouseover',e=>{if(e.target.closest&&e.target.closest('[data-part],[data-rule]'))showTip(e.target);else hideTip()});
+document.addEventListener('focusin',e=>{if(e.target.closest('#tw'))showTip(e.target)});document.addEventListener('focusout',hideTip);document.addEventListener('scroll',hideTip,true);
+// ---------- the runbook: one question per step
+function A(v){return v!==undefined&&v!==null&&v!==''}
+function unslot(n,v){const k=n.slot;delete n.slot;n.name=v;if(k==='root')return;if(k==='leaf')n.leaf={done:'',size:1,_new:1};n.id=slug(v);index()}
+const relLab={kind:'Kinds',instance:'Instances',part:'Parts'};
+function stepsFor(n){const S=[],isR=n.id===T.root.id,kids=n.children,leaf=n.leaf,real=(kids||[]).filter(x=>!x.slot);
+  if(n.slot)return[{k:'name',q:isR?'What is this a tree of?':n.slot==='leaf'?'What is it?':'What is this part?',t:'text',get:()=>undefined,set:v=>unslot(n,v)}];
+  if(isR){S.push({k:'name',q:'What is this a tree of?',t:'text',get:()=>n.name,set:v=>n.name=v});S.push({k:'done',q:'What counts as done?',t:'text',get:()=>n.done,set:v=>n.done=v});S.push({k:'grain',q:'What is the smallest unit it resolves?',t:'text',get:()=>n.grain,set:v=>n.grain=v})}
+  if(!kids&&!leaf)S.push({k:'kind',q:'Split it, or finish it?',t:'choice',opts:['Split','Finish'],get:()=>undefined,set:v=>{if(v==='Split')n.children=[];else n.leaf={done:'',size:1}}});
+  if(kids){S.push({k:'cut',q:'Split by which question?',t:'text',get:()=>n.cut,set:v=>n.cut=/\?\s*$/.test(v)?v:v+'?'});
+    S.push({k:'relation',q:'What are the parts to the whole?',t:'choice',opts:['Kinds','Instances','Parts'],get:()=>n.rel?relLab[n.rel]:undefined,set:v=>n.rel={Parts:'part',Kinds:'kind',Instances:'instance'}[v]});
+    S.push({k:'parts',q:'Name the parts: two to four',t:'kids',get:()=>real.length?real:undefined})}
+  if(leaf){S.push({k:'done-test',q:'What counts as done, and where?',t:'text',get:()=>leaf.done,set:v=>leaf.done=v});
+    S.push({k:'size',q:'How many grains?',t:'text',get:()=>leaf.done&&leaf.size>0?String(leaf.size):undefined,set:v=>leaf.size=Math.max(1,parseInt(v)||1)});
+    S.push({k:'count',q:'Counted? Target per cell, 2 or more',t:'text',opt:1,get:()=>leaf.count?String(leaf.count.target):undefined,set:v=>{const x=parseInt(v);if(x)leaf.count={target:x,cells:(leaf.count&&leaf.count.cells)||[]}}})}
+  const c=()=>n.contract=n.contract||{holds:'',hides:'',takes:undefined,gives:undefined,refuses:undefined};
+  S.push({k:'holds',q:'What counts as this part?',t:'text',get:()=>n.contract&&n.contract.holds,set:v=>c().holds=v});
+  S.push({k:'hides',q:'What decision does it hide from the others?',t:'text',get:()=>n.contract&&n.contract.hides,set:v=>c().hides=v});
+  S.push({k:'takes',q:'What does it take in? Signals, one at a time',t:'sig',dir:'from',get:()=>n.contract&&n.contract.takes});
+  S.push({k:'gives',q:'What does it give out? Signals, one at a time',t:'sig',dir:'to',get:()=>n.contract&&n.contract.gives});
+  S.push({k:'refuses',q:'What does it refuse, and where does that go?',t:'ref',get:()=>n.contract&&n.contract.refuses});
+  S.push({k:'keeper',q:'Who keeps this contract?',t:'text',opt:1,get:()=>n.contract&&n.contract.agreed&&n.contract.agreed.by,set:v=>c().agreed={by:v,on:new Date().toISOString().slice(0,10)}});
+  return S}
+function nextWork(){for(const [id,x] of IDX){if(x.n.slot)continue;const S=stepsFor(x.n),i=S.findIndex(s=>!A(s.get())&&!s.opt);if(i>=0)return{id,i}}return null}
+function pick(id,i){if(id===T.root.id){TREE_OPEN.clear();TREE_OPEN.add(id);}else if(TREE_OPEN.has(id)&&sel===id)TREE_OPEN.delete(id);else TREE_OPEN.add(id);sel=id;const n=IDX.get(id).n,S=stepsFor(n);cur=i!=null?i:Math.max(0,S.findIndex(s=>!A(s.get())));if(cur<0)cur=0;renderAll()}
+function advance(){const n=IDX.get(sel).n,S=stepsFor(n),i=S.findIndex((s,j)=>j>cur&&!A(s.get()));if(i>=0){cur=i;renderAll();return}const w=nextWork();if(w&&w.id!==sel){pick(w.id,w.i);return}cur=Math.min(cur+1,S.length-1);renderAll()}
+function opts(excl){return '<option value="outside">outside the tree</option>'+[...IDX.values()].filter(x=>x.n.id!==excl&&!x.n.slot).map(x=>`<option value="${esc(x.n.id)}">${esc(x.n.name||x.n.id)}</option>`).join('')}
+function addFlow(from,to,sig){T.flows=T.flows||[];if(T.flows.some(f=>f.from===from&&f.to===to&&f.signal===sig))return;T.flows.push({from,to,signal:sig});
+  [[from,'gives'],[to,'takes']].forEach(([id,k])=>{if(id==='outside')return;const c=IDX.get(id).n.contract=IDX.get(id).n.contract||{holds:'',hides:'',takes:undefined,gives:undefined,refuses:undefined};c[k]=c[k]||[];if(!c[k].includes(sig))c[k].push(sig)})}
+function renderStep(){const box=$('#step');if(!sel||!IDX.has(sel)){box.innerHTML='<div class="q dim">Pick a node</div>';return}
+  const n=IDX.get(sel).n,S=stepsFor(n),s=S[Math.min(cur,S.length-1)],dots=S.map((x,j)=>`<button data-j="${j}" class="${A(x.get())?'done':''} ${j===cur?'cur':''}" title="${esc(x.q)}">${x.k}</button>`).join('');
+  let body='';const v=s.get();
+  if(s.t==='text')body=`<div class="row"><input type="text" id="in" value="${esc(v||'')}" autocomplete="off"><button id="ok">${s.opt&&!A(v)?'Skip':'Next'}</button></div>`;
+  else if(s.t==='choice')body=`<div class="row">${s.opts.map(o=>`<button data-o="${esc(o)}" class="${v===o?'on':''}">${esc(o)}</button>`).join('')}</div>`;
+  else if(s.t==='kids')body=`<div class="row"><input type="text" id="in" placeholder="a part" autocomplete="off"><button id="add">Add</button><button id="ok">Next</button></div><div class="items">${(n.children||[]).map(c=>`<span>${c.slot?SLB[c.slot]:esc(c.name)} <a href="#" data-rm="${esc(c.id)}" style="color:inherit" aria-label="remove">×</a></span>`).join('')}</div>`;
+  else if(s.t==='sig')body=`<div class="row"><input type="text" id="in" placeholder="a signal" autocomplete="off"><span class="dim mono">${s.dir==='to'?'→':'←'}</span><select id="who">${opts(n.id)}</select><button id="add">Add</button><button id="ok">${(v&&v.length)||Array.isArray(v)?'Next':'None'}</button></div><div class="items">${(v||[]).map(g=>`<span>${esc(g)}</span>`).join('')}</div>`;
+  else if(s.t==='ref')body=`<div class="row"><input type="text" id="in" placeholder="what" autocomplete="off"><span class="dim mono">→</span><select id="home"><option value="none">none</option>${[...IDX.values()].filter(x=>x.n.id!==n.id&&!x.n.slot).map(x=>`<option value="${esc(x.n.id)}">${esc(x.n.name||x.n.id)}</option>`).join('')}</select><input type="text" id="why" placeholder="why none" style="flex:0 1 150px"><button id="add">Add</button><button id="ok">${(v&&v.length)||Array.isArray(v)?'Next':'None'}</button></div><div class="items">${(v||[]).map(r=>`<span>${esc(r.what)} → ${esc(r.goes_to)}</span>`).join('')}</div>`;
+  box.innerHTML=`<div class="top"><span class="chip">${esc(n.slot?SLB[n.slot]:n.name||n.id)}</span><div class="dots">${dots}</div></div><div class="q">${esc(s.q)}</div>${body}`;
+  const inp=$('#in');if(inp&&document.activeElement!==inp){inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)}}
+function onStep(e){const n=IDX.get(sel).n,S=stepsFor(n),s=S[cur],t=e.target,mkC=()=>n.contract=n.contract||{holds:'',hides:'',takes:undefined,gives:undefined,refuses:undefined};
+  if(t.dataset.j!==undefined){cur=+t.dataset.j;renderAll();return}
+  if(t.dataset.o!==undefined){s.set(t.dataset.o);index();checkAll();if(s.k==='kind')renderAll();else advance();return}
+  if(t.dataset.rm){e.preventDefault();const c=n.children;c.splice(c.findIndex(x=>x.id===t.dataset.rm),1);index();checkAll();renderAll();return}
+  if(t.id==='ok'){const inp=$('#in');
+    if(s.t==='text'){const val=inp.value.trim();if(val===''&&!A(s.get())&&!s.opt)return;const was=n.slot;if(val!=='')s.set(val);index();checkAll();if(was){sel=n.id;cur=-1}advance()}
+    else if(s.t==='kids'){const val=inp.value.trim();if(val)addKid(n,val);index();checkAll();advance()}
+    else if(s.t==='sig'){const c=mkC();c[s.k]=c[s.k]||[];index();checkAll();advance()}
+    else if(s.t==='ref'){const c=mkC();c.refuses=c.refuses||[];index();checkAll();advance()}return}
+  if(t.id==='add'){const inp=$('#in'),val=inp.value.trim();if(!val)return;
+    if(s.t==='kids')addKid(n,val);
+    else if(s.t==='sig'){const who=$('#who').value;if(s.dir==='to')addFlow(n.id,who,val);else addFlow(who,n.id,val)}
+    else if(s.t==='ref'){const c=mkC();c.refuses=c.refuses||[];const home=$('#home').value,why=$('#why').value.trim();c.refuses.push(home==='none'?{what:val,goes_to:'none',reason:why}:{what:val,goes_to:home})}
+    index();checkAll();renderAll();return}}
+function addKid(n,val){n.children.push({id:slug(val),name:val});index()}
+function checkAll(){check();renderTree()}
+function renderAll(){renderTree();renderStep()}
+// ---------- load, new, copy
+let SL=0;const sid=()=>'slot-'+(++SL);
+function blank(){SL=0;const lf=()=>({id:sid(),slot:'leaf'}),pt=(...k)=>({id:sid(),slot:'part',children:k});return{grain_tree:4,title:'Template',root:{id:'root',slot:'root',children:[pt(lf(),lf()),pt(pt(lf(),lf()),lf()),pt(pt(pt(lf(),lf()),lf()),lf())]},flows:[],slices:[]}}
+function load(t){T=JSON.parse(JSON.stringify(t));TREE_OPEN=new Set([T.root.id]);sel=T.root.id;cur=0;index();check();pick(sel,0)}
+$('#copy').onclick=()=>{const s=JSON.stringify(T,(k,v)=>k.startsWith('_')?undefined:k==='children'&&Array.isArray(v)?v.filter(x=>!x.slot):v,1);const fb=()=>{try{const a=document.createElement('textarea');a.value=s;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}catch(e){}};try{navigator.clipboard.writeText(s).catch(fb)}catch(e){fb()}$('#copy').textContent='Copied';setTimeout(()=>$('#copy').textContent='Copy JSON',900)};
+$('#step').addEventListener('click',e=>{if(sel&&IDX.has(sel))onStep(e)});
+$('#step').addEventListener('keydown',e=>{if(e.key!=='Enter'||!sel)return;const t=e.target;if(t.tagName==='INPUT'){e.preventDefault();const s=stepsFor(IDX.get(sel).n)[cur];if(s.t==='text')$('#ok').click();else if(t.id==='in'||t.id==='why'){if($('#in').value.trim())$('#add').click();else $('#ok').click()}}});
+$('#tree').addEventListener('click',e=>{const t=e.target.closest('[data-id]');if(t)pick(t.dataset.id)});
+$('#tree').addEventListener('keydown',e=>{if(e.key==='Enter'){const t=e.target.closest('[data-id]');if(t)pick(t.dataset.id)}});
+// ---------- reference: show a rule on the tree, live status per rule
+let HL=null,RET=null;
+const idsOf=f=>[...IDX.values()].filter(x=>!x.n.slot&&f(x)).map(x=>x.n.id),isBr=x=>Array.isArray(x.n.children),isLf=x=>!!x.n.leaf;
+const SC={G1:()=>[T.root.id],G2:()=>idsOf(x=>isLf(x)&&x.n.leaf.count),G3:()=>idsOf(isLf),C1:()=>idsOf(isBr),H1:()=>idsOf(x=>1),H2:()=>idsOf(x=>isBr(x)&&x.n.id!==T.root.id),F1:()=>idsOf(isBr),F2:()=>idsOf(isBr),F3:()=>idsOf(isBr),F4:()=>idsOf(x=>x.n.see&&x.n.see.length),P1:()=>idsOf(x=>1),K1:()=>idsOf(x=>1),
+ K2:()=>{const o=[];(T.flows||[]).forEach(f=>{if(IDX.has(f.from))o.push(f.from);if(IDX.has(f.to))o.push(f.to)});return o},K3:()=>idsOf(x=>x.n.contract&&(x.n.contract.refuses||[]).length),K4:()=>idsOf(x=>1),K5:()=>idsOf(isBr),
+ T1:()=>{const o=[];(T.slices||[]).forEach(s=>(s.leaves||[]).forEach(l=>{if(IDX.has(l))o.push(l)}));return o}};
+const flagged=(c,lv)=>Object.keys(ISS).filter(id=>ISS[id].some(x=>x.c===c&&(!lv||x.l===lv)));
+const uniq=a=>[...new Set(a)];
+function applyHL(){document.querySelectorAll('.hl,.hlx').forEach(e=>e.classList.remove('hl','hlx'));
+  document.querySelectorAll('.rc[data-code]').forEach(r=>r.classList.toggle('cur',!!HL&&HL.length===1&&HL[0]===r.dataset.code));
+  const hb=$('#hlb'),hc=$('#hlc');if(!HL){hb.hidden=hc.hidden=true;return}
+  const sc=uniq(HL.flatMap(c=>SC[c]?SC[c]():[])),fl=uniq(HL.flatMap(c=>flagged(c)));
+  sc.forEach(id=>document.querySelectorAll('#tw [data-id="'+CSS.escape(id)+'"]').forEach(e=>e.classList.add(fl.includes(id)?'hlx':'hl')));
+  fl.forEach(id=>document.querySelectorAll('#tw [data-id="'+CSS.escape(id)+'"]').forEach(e=>e.classList.add('hlx')));
+  hb.hidden=hc.hidden=false;hb.textContent='↓ '+HL.join(' ')+' · '+sc.length+' in scope'+(fl.length?' · '+fl.length+' marked':'');hb.className=fl.length?'on':''}
+function refreshRef(){document.querySelectorAll('.rc[data-code]').forEach(r=>{const c=r.dataset.code,sc=uniq(SC[c]?SC[c]():[]),e=flagged(c,'e').length,w=flagged(c,'w').length,st=r.querySelector('.st');
+    st.className='st '+(e?'e':w?'w':sc.length?'ok':'');st.textContent=e?'✕ '+e:w?'! '+w:sc.length?'✓ '+sc.length:'–';st.title=sc.length+' nodes in scope'})}
+function setHL(codes,from){const k=codes.join(' ');if(HL&&HL.join(' ')===k){HL=null;applyHL();return}HL=codes;RET=from.el;applyHL();scrollTo(0,0)}
+document.addEventListener('click',e=>{const t=e.target.closest('.ref [data-hl],.ref a[href^="#"]');if(!t)return;
+  if(t.matches('a')){e.preventDefault();const x=document.getElementById(t.getAttribute('href').slice(1));if(x)x.scrollIntoView({block:'start'});return}
+  setHL(t.dataset.hl.split(' '),{el:t})});
+$('#hlb').onclick=()=>{if(RET)RET.scrollIntoView({block:'center'})};
+$('#hlc').onclick=()=>{HL=null;applyHL()};
+addEventListener('resize',drawLines);
+load(INITIAL_TREE || blank());
+let refIn=0;function mountRef(){if(refIn)return;refIn=1;$('#refslot').appendChild($('#reft').content.cloneNode(true));refreshRef();applyHL()}
+(window.requestIdleCallback||setTimeout)(mountRef);addEventListener('hashchange',mountRef);if(location.hash)mountRef();
+</script></body></html>
