@@ -78,7 +78,7 @@ The bench is for rapid sorting; every inch the mouse travels slows the flip-and-
 - A key gets bigger only if that doesn't push it from its neighbours.
 - Every control for the loop (marks, steps, categories, passes) lives in the one panel, not at the edges.
 - Before showing a layout, trace the mouse path of the most common sequence.
-- Key order: Works · Cut · ‹ › · Change. › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
+- Key order: ‹ › · Change · Works · Cut, with Change on key 1, Works on 2 and Cut on 3 (24 Oct, 11:58 PM, his words: "i do want change on 1"). › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
 
 ## Sorting passes
 
