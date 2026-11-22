@@ -36,6 +36,10 @@ Pick the central picture from the question the sheet answers. The shape must say
 | many variants of one kind | a grid of small drawings |
 | one agent or one flow through a system | a single flow, separate from the master plan |
 | a whole system at once | an overview, with each subsystem on its own sheet |
+| how one part is built (a room, a fitting) | a technical drawing: plan, elevation and section at one scale, dimensioned, each part called out |
+| how the parts fit together | a pull-apart drawing he can turn and separate: labels off the drawing on leader lines, each kind of part drawn differently, a dashed guide from each lifted part to its seat |
+
+The last two are the studio's paperwork methods (22 Nov, his words on the Lüm workplace sheets: "those workplace drawings are NICE"). Their first examples are on Lüm › Paperwork: "Technical drawing · Room 109" and "Pull-apart drawing · the workplace".
 
 ## The method
 
