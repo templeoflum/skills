@@ -34,7 +34,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **Where things live:** `AGENTS.md` in studio-operations.
 - **What he has said about a piece of work:** his marks on the bench, and his word in chat.
 - **What's next:** his latest marks and word, and your brief. If all three are empty, nothing new starts: an idle lane is not a stall, and nothing is made just because the queue is empty.
-- **The source over memory:** before you say how something stands, read it: the file, the mark, the PR, the live page. Summaries drift, your own included.
+- **Ground truth first (22 Nov):** collect the original data before reasoning about a thing. Before you say how something stands, read the source: the file, the mark, the PR, the live page. Summaries drift, your own included.
 
 ## Working with him
 
