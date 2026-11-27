@@ -20,7 +20,7 @@ Marked Works by Hedawn, 22 Oct 2026. The workbench shows work in one shape, so e
 - **Work.** One piece: a clip, a flyer concept, a room, a track. It has a stable id, a title, its bin (and sub-bin, if any) and its versions. Bins hold sub-bins as deep as the content needs, with no fixed number of levels; the project picks the categories, and the standard sets only this structure (after the Ableton Atlas, `live-atlas/DEVICES_MAP.md`). A work stays the same work for its whole life; new drafts never make a new work.
 - **Version.** One take on a work, numbered 1, 2, 3, newest first. Each says in one line what changed, when, and where its file is. A new draft is a new version, and nothing else. Versions are stepped through inside the work's card, never shown as extra cards.
 - **Format.** The same work in another shape (VJ: 16:9, 3:1, 6:1; flyers: story, feed, print). Each format of a version has its own file and its own output state.
-- **Mark.** Works, Change or Cut, with an optional note, made by Hedawn. A mark names the work and the version it was made on. Marks pile up on a version; none replaces another.
+- **Mark.** Change or Cut, with an optional note, made by Hedawn. A mark names the work and the version it was made on. Marks pile up on a version; none replaces another.
 
 ## Notes are marks
 
@@ -28,7 +28,9 @@ Everything he has said about a work is that work's marks, in order. There is no 
 
 ## State
 
-The bench derives each work's state from the marks on its newest version: any Cut → **Cut**; else a Change → **Needs change**; else a Works → **Nothing pending**; else **Needs sorting**. A new version starts at Needs sorting and answers every Change on the version before it. Unmark clears one mark on one version. Cut hides the work and deletes nothing. A PM makes no new version of a Cut work without his word.
+The Bench reads the current round's marks. Cut archives the work and deletes nothing. Change asks the studio for another version. A round leaves Needs sorting when he marks it Change or Cut. A new version answers Changes on the previous version and starts in Needs sorting. A PM makes no new version of a Cut work without his word. Works is retired (27 Nov 2026): historical Works marks remain in the record, and a round previously marked Works stays browsable under Open.
+
+Waiting counts bins with at least one round to sort. A bin on Hold is on the back burner. A round already in the studio's hands leaves the producer's waiting count. Unmark clears an active Change or Cut.
 
 ## Output states
 
@@ -59,7 +61,7 @@ Desktop surfaces only (Hedawn, 21 Nov 2026). No phone layouts or phone checks.
 
 - **Fixed:** the control panel and the side scroller (the four-slot window) stay the same whatever is reviewed. A project changes only its keys, in its profile.
 - **Cards** show in the side scroller, one card per work. The card list has a set height; it filters and scrolls, and keeps its place in each bin. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
-- **Pass filters** (Needs sorting, Nothing pending, Needs change, Cut) are symbols with their counts.
+- **Pass filters** (Needs sorting, Open, Needs change, Cut) are symbols with their counts.
 - **His words for the levels (17 Nov):** a **bin** is the row of bins across the top ("functionally our address bar"; `card.json` cards), a **hub** is what is listed down the side (`card.json` tracks), a **card** is whatever is on the screen. Use these words with him. A hub can sit in a group (`tracks.<t>.group`, set with `move_card --relabel`); groups fold and start open.
 - **Every space has a declared contract, and a break must show (17 Nov).** His central principle: nearly all his frustration is a contract that breaks unseen, with no way for him to say so. A space's bounds are declared and visible; base tabs are bounds, not forms (Outside, Scenes, Worldbook, Tale, Log), wordless, labels only. The draft standard is `knowledge/temple-of-lum/jobs/2026-11-17/bounded-spaces-standard`: a draft, so new rules go to him as proposals.
 - **Every page loads instantly (17 Nov: "no ifs ands or buts").** No loading screens; the museum never shows one. Hold seats to about 200 ms to the first view, measured as ready time (`check_frames` `ready_ms`) and a WebKit first-frame time. The record feed went from 27 MB to 5 MB that day by sending items once.
@@ -78,16 +80,16 @@ The bench is for rapid sorting; every inch the mouse travels slows the flip-and-
 - A key gets bigger only if that doesn't push it from its neighbours.
 - Every control for the loop (marks, steps, categories, passes) lives in the one panel, not at the edges.
 - Before showing a layout, trace the mouse path of the most common sequence.
-- Key order: ‹ › · Change · Works · Cut, with Change on key 1, Works on 2 and Cut on 3 (24 Oct, 11:58 PM, his words: "i do want change on 1"). › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
+- Key order: ‹ › · Change · Cut, with Change on key 1 and Cut on 3 (24 Oct, 11:58 PM, his words: "i do want change on 1"). › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
 
 ## Sorting passes
 
 Splitting the passes made him "less stressed and more confident in my choices, nothing is lost, everything is sorted." Each decision answers one question, and nothing is deleted.
 
-1. **Needs sorting:** every work whose newest version has no mark. Flip through and mark each one; a marked work leaves at once.
-2. **Nothing pending:** marked Works, with nothing open.
-3. **Needs change:** a later, dedicated pass. A Change stays open until a new version answers it.
-4. **Cut:** a last look for anything worth saving or recreating.
+1. **Needs sorting:** newest rounds awaiting a look.
+2. **Open:** browse rounds previously marked Works.
+3. **Needs change:** rounds with an open Change.
+4. **Cut:** archived rounds, available to review and restore.
 
 Keep this split in any tool that asks him to judge work. Never merge the passes into one "fix it now" step. Archive, don't delete.
 
