@@ -28,9 +28,9 @@ Everything he has said about a work is that work's marks, in order. There is no 
 
 ## State
 
-The Bench reads the current round's marks. Cut archives the work and deletes nothing. Change asks the studio for another version. A round leaves Needs sorting when he marks it Change or Cut. A new version answers Changes on the previous version and starts in Needs sorting. A PM makes no new version of a Cut work without his word. Works is retired (27 Nov 2026): historical Works marks remain in the record, and a round previously marked Works stays browsable under Open.
+A round is in one of five states: New, Seen, Pinned, Stamped or Cut (27 Nov 2026). His first look at a round records Seen for that exact round. Only his own browser records it; an automated page never does. An open Change makes the round Pinned and awaits the studio's response. Stamp approves the version in front for now and is never a freeze. A newer version starts New and carries no stamp. Cut archives the work and deletes nothing. A PM makes no new version of a Cut work without his word. Seen and Stamp are lines in `marks.jsonl`, like any mark.
 
-Waiting counts bins with at least one round to sort. A bin on Hold is on the back burner. A round already in the studio's hands leaves the producer's waiting count. Unmark clears an active Change or Cut.
+Waiting counts bins with a New round. Hold puts a bin on the back burner. A round already in the studio's hands leaves his waiting count. Unmark clears an active Change or Cut. Works is retired: historical Works marks stay in the record, and a round once marked Works reads Seen.
 
 ## Output states
 
@@ -61,13 +61,13 @@ Desktop surfaces only (Hedawn, 21 Nov 2026). No phone layouts or phone checks.
 
 - **Fixed:** the control panel and the side scroller (the four-slot window) stay the same whatever is reviewed. A project changes only its keys, in its profile.
 - **Cards** show in the side scroller, one card per work. The card list has a set height; it filters and scrolls, and keeps its place in each bin. A card can be video, text, code, an image and more; the screen loads the card module that matches its type.
-- **Pass filters** (Needs sorting, Open, Needs change, Cut) are symbols with their counts.
+- **Pass filters** (New, Seen, Pinned, Stamped, Cut) are symbols with their counts.
 - **His words for the levels (17 Nov):** a **bin** is the row of bins across the top ("functionally our address bar"; `card.json` cards), a **hub** is what is listed down the side (`card.json` tracks), a **card** is whatever is on the screen. Use these words with him. A hub can sit in a group (`tracks.<t>.group`, set with `move_card --relabel`); groups fold and start open.
 - **Every space has a declared contract, and a break must show (17 Nov).** His central principle: nearly all his frustration is a contract that breaks unseen, with no way for him to say so. A space's bounds are declared and visible; base tabs are bounds, not forms (Outside, Scenes, Worldbook, Tale, Log), wordless, labels only. The draft standard is `knowledge/temple-of-lum/jobs/2026-11-17/bounded-spaces-standard`: a draft, so new rules go to him as proposals.
 - **Every page loads instantly (17 Nov: "no ifs ands or buts").** No loading screens; the museum never shows one. Hold seats to about 200 ms to the first view, measured as ready time (`check_frames` `ready_ms`) and a WebKit first-frame time. The record feed went from 27 MB to 5 MB that day by sending items once.
 - **Bin buttons** stay fixed, with a bin's sub-bins inside it. Nothing expands or collapses. Positions and sizes come from layout studies, still open.
 - **Live:** the console takes in new records in place. Everything off the card in front comes in on its own. A change to the card in front (a new version, a new file under it, or it leaving the strip) comes in at once (never while a note is open or he is scrubbing): the card opens at the change and plays, so he can wait on the page and see it arrive. Until then the card says `vN waiting · R`, and the quiet Update key (R) takes it at once. A new round on another card goes to that card at once, across projects on the bench too, never with a note open ("just make sure it shows up on my screen", "stop waiting for me to be idle", 5 Nov; if it becomes a problem he says so and it gets fixed); until then its card is marked and the Update key counts it. Links aren't how work reaches him: they open new tabs.
-- **An empty Needs sorting is his "nothing waiting" signal** (23 Oct): he leaves the page on that pass, and new work pops up there to sort. Keep it honest: only work for him to sort lands there, and nothing that waits on him sits anywhere else.
+- **An empty New is his "nothing waiting" signal** (23 Oct): he leaves the page on that pass, and new work pops up there to sort. Keep it honest: only work for him to sort lands there, and nothing that waits on him sits anywhere else.
 - **New code reloads itself** (his A+C, 23 Oct): when the console code changes, the page reloads on its own at once, and comes back where he was (card, version, playhead, play or pause, drafts). Nothing moves while a note is open, a drag is live or a mark is in flight. His typed text never disappears ("as long as my text im riting dosnet idsaper you dont need to wait to update th ebench", 5 Nov): a bench restart needs no wait, sends ride through it, a failed send stays a draft, and his own refresh reopens the box on his words.
 
 **Paged works.** Every paged work exposes one page's recorded versions together, including page-specific tries. Page identity survives book reordering through studio-maintained IDs. Legacy position matches remain visible and explicitly unconfirmed. Each occurrence retains its source version, picks and notes. The view distinguishes saved choices from their confirmed incorporation into a named build. It opens within the card, preserves the panel and side scroller, and restores the previous place on close. The fixed panel handles repeated stepping and marking. No structural change occurs during notes, drags or sends. The studio maintains identity and build provenance; Hedawn only chooses, marks and optionally writes.
@@ -80,16 +80,17 @@ The bench is for rapid sorting; every inch the mouse travels slows the flip-and-
 - A key gets bigger only if that doesn't push it from its neighbours.
 - Every control for the loop (marks, steps, categories, passes) lives in the one panel, not at the edges.
 - Before showing a layout, trace the mouse path of the most common sequence.
-- Key order: ‹ › · Change · Cut, with Change on key 1 and Cut on 3 (24 Oct, 11:58 PM, his words: "i do want change on 1"). › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
+- Key order: ‹ › · Change · Cut · Stamp, with Change on key 1 and Cut on 3 (24 Oct, 11:58 PM, his words: "i do want change on 1"). › and Change are used most, so they sit side by side. There is no SEND: he removed it on 22 Oct, and every work is marked one by one.
 
 ## Sorting passes
 
 Splitting the passes made him "less stressed and more confident in my choices, nothing is lost, everything is sorted." Each decision answers one question, and nothing is deleted.
 
-1. **Needs sorting:** newest rounds awaiting a look.
-2. **Open:** browse rounds previously marked Works.
-3. **Needs change:** rounds with an open Change.
-4. **Cut:** archived rounds, available to review and restore.
+1. **New:** he has yet to look at this version.
+2. **Seen:** he has looked at this version.
+3. **Pinned:** the version has an open Change, with or without a surface pin.
+4. **Stamped:** he approved this version for now.
+5. **Cut:** archived rounds, available to review and restore.
 
 Keep this split in any tool that asks him to judge work. Never merge the passes into one "fix it now" step. Archive, don't delete.
 
