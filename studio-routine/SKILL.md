@@ -24,7 +24,7 @@ Think of it as a signal path. His word is the signal. The studio buffers it, hol
 - **A blueprint, when the work has parts.** The blueprint is the team's working drawings for the crews. It's also something he can point to after the work is built, so he doesn't have to explain. His go opens the work; the build never waits on his signature.
 - **A study or a build.** Crews make it from a brief. Make what he asked for boldly. Reuse what already exists, and re-render only what changed.
 - **On the bench.** Every finished piece goes on the bench with what changed and the evidence.
-- **His mark.** He marks it Works, Change or Cut. A Change becomes the next brief, Works settles it, and Cut retires it to the archive. His word in chat counts the same as a mark: he never has to mark what he has already said.
+- **His mark.** He marks it Change or Cut. A Change becomes the next brief, and Cut retires it to the archive. Works is retired (27 Nov): nothing is frozen, and everything stays open to revision. His word in chat counts the same as a mark: he never has to mark what he has already said.
 - **The record.** The record is the originals: his words, his marks and picks, the files, the job log. Existing gardens and snapshots stay as dated notes that point at them; they are not rebuilt after every job. A rule changes where it lives: in code where code can hold it, else in its skill or seat file.
 
 ## Finding where you are and what's next
